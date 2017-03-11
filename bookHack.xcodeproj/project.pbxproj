@@ -18,6 +18,10 @@
 		891324A91E72E91F00288BA1 /* bookHackUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 891324A81E72E91F00288BA1 /* bookHackUITests.m */; };
 		89260E751E73C48B00191460 /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89260E741E73C48B00191460 /* CardView.xib */; };
 		89260E781E73C81B00191460 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89260E771E73C81B00191460 /* CardView.m */; };
+		894D1E951E73E9E70028D196 /* PCSearchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 894D1E941E73E9E70028D196 /* PCSearchItem.m */; };
+		894D1E981E73EA130028D196 /* PCMapBaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 894D1E971E73EA130028D196 /* PCMapBaseItem.m */; };
+		894D1E9E1E73EB5F0028D196 /* PCMapSceneItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 894D1E9D1E73EB5F0028D196 /* PCMapSceneItem.m */; };
+		894D1EA11E73EB770028D196 /* PCMapHotelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 894D1EA01E73EB770028D196 /* PCMapHotelItem.m */; };
 		89D237D61E73A28B0041FC3A /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D237D51E73A28B0041FC3A /* SwipeViewController.m */; };
 		89D237DA1E73A8AB0041FC3A /* swift-bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D237D91E73A8AB0041FC3A /* swift-bridge.swift */; };
 		89D237DE1E73AE8F0041FC3A /* Swipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89D237DD1E73AE8F0041FC3A /* Swipe.storyboard */; };
@@ -71,6 +75,14 @@
 		89260E741E73C48B00191460 /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CardView.xib; path = View/Swipe/CardView/CardView.xib; sourceTree = "<group>"; };
 		89260E761E73C81B00191460 /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardView.h; path = View/Swipe/CardView/CardView.h; sourceTree = "<group>"; };
 		89260E771E73C81B00191460 /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardView.m; path = View/Swipe/CardView/CardView.m; sourceTree = "<group>"; };
+		894D1E931E73E9E70028D196 /* PCSearchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCSearchItem.h; path = Model/PCSearchItem.h; sourceTree = "<group>"; };
+		894D1E941E73E9E70028D196 /* PCSearchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCSearchItem.m; path = Model/PCSearchItem.m; sourceTree = "<group>"; };
+		894D1E961E73EA130028D196 /* PCMapBaseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCMapBaseItem.h; path = Model/PCMapBaseItem.h; sourceTree = "<group>"; };
+		894D1E971E73EA130028D196 /* PCMapBaseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCMapBaseItem.m; path = Model/PCMapBaseItem.m; sourceTree = "<group>"; };
+		894D1E9C1E73EB5F0028D196 /* PCMapSceneItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCMapSceneItem.h; path = Model/PCMapSceneItem.h; sourceTree = "<group>"; };
+		894D1E9D1E73EB5F0028D196 /* PCMapSceneItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCMapSceneItem.m; path = Model/PCMapSceneItem.m; sourceTree = "<group>"; };
+		894D1E9F1E73EB770028D196 /* PCMapHotelItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCMapHotelItem.h; path = Model/PCMapHotelItem.h; sourceTree = "<group>"; };
+		894D1EA01E73EB770028D196 /* PCMapHotelItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCMapHotelItem.m; path = Model/PCMapHotelItem.m; sourceTree = "<group>"; };
 		89A6C49F1E72FF72000C44D3 /* prefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prefix.h; sourceTree = "<group>"; };
 		89D169870A77BC2B8ECD8458 /* Pods_bookHackTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookHackTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D237D41E73A28B0041FC3A /* SwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwipeViewController.h; path = View/Swipe/SwipeViewController.h; sourceTree = "<group>"; };
@@ -85,7 +97,6 @@
 		AF19D1E5C42D009D893748CD /* Pods_bookHack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookHack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C666B354CED3C4307D3F90EE /* Pods_bookHackUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookHackUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6369F1F94B5D0F0C78EA551 /* Pods-bookHackTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookHackTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bookHackTests/Pods-bookHackTests.release.xcconfig"; sourceTree = "<group>"; };
-		FB22E7AF1E73C3340017134E /* PCMapItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCMapItem.h; sourceTree = "<group>"; };
 		FB22E7B01E73CCDC0017134E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -226,9 +237,24 @@
 		894D1E921E73E4350028D196 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FB22E7AF1E73C3340017134E /* PCMapItem.h */,
+				894D1EA21E73EB7E0028D196 /* MapItem */,
+				894D1E931E73E9E70028D196 /* PCSearchItem.h */,
+				894D1E941E73E9E70028D196 /* PCSearchItem.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		894D1EA21E73EB7E0028D196 /* MapItem */ = {
+			isa = PBXGroup;
+			children = (
+				894D1E961E73EA130028D196 /* PCMapBaseItem.h */,
+				894D1E971E73EA130028D196 /* PCMapBaseItem.m */,
+				894D1E9C1E73EB5F0028D196 /* PCMapSceneItem.h */,
+				894D1E9D1E73EB5F0028D196 /* PCMapSceneItem.m */,
+				894D1E9F1E73EB770028D196 /* PCMapHotelItem.h */,
+				894D1EA01E73EB770028D196 /* PCMapHotelItem.m */,
+			);
+			name = MapItem;
 			sourceTree = "<group>";
 		};
 		89D237CA1E739ED40041FC3A /* Views */ = {
@@ -572,13 +598,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				89D237DA1E73A8AB0041FC3A /* swift-bridge.swift in Sources */,
+				894D1E9E1E73EB5F0028D196 /* PCMapSceneItem.m in Sources */,
 				891324881E72E91F00288BA1 /* ViewController.m in Sources */,
 				89260E781E73C81B00191460 /* CardView.m in Sources */,
+				894D1E981E73EA130028D196 /* PCMapBaseItem.m in Sources */,
 				891324851E72E91F00288BA1 /* AppDelegate.m in Sources */,
 				891324821E72E91F00288BA1 /* main.m in Sources */,
+				894D1E951E73E9E70028D196 /* PCSearchItem.m in Sources */,
 				89D237D61E73A28B0041FC3A /* SwipeViewController.m in Sources */,
 				8913248E1E72E91F00288BA1 /* bookHack.xcdatamodeld in Sources */,
 				89D237E11E73AEC90041FC3A /* MapViewController.m in Sources */,
+				894D1EA11E73EB770028D196 /* PCMapHotelItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
