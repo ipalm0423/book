@@ -23,6 +23,7 @@
 
 @interface PCMapHotelItem : PCMapBaseItem
 @property NSString *hotelId;
+@property NSNumber *numberOfPeople;
 @property NSDate *checkInDate;
 @property NSDate *checkOutDate;
 @end
