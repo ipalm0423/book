@@ -27,6 +27,10 @@
 		C1E328E5C14020EE558EBADD /* Pods_bookHackUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C666B354CED3C4307D3F90EE /* Pods_bookHackUITests.framework */; };
 		E6F8C96EC28CE78356054ACD /* Pods_bookHackTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D169870A77BC2B8ECD8458 /* Pods_bookHackTests.framework */; };
 		FB22E7B11E73CCDC0017134E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB22E7B01E73CCDC0017134E /* MapKit.framework */; };
+		FBDB57B91E73F017000C0EE2 /* PCMapBaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDB57B21E73F017000C0EE2 /* PCMapBaseItem.m */; };
+		FBDB57BA1E73F017000C0EE2 /* PCMapHotelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDB57B41E73F017000C0EE2 /* PCMapHotelItem.m */; };
+		FBDB57BB1E73F017000C0EE2 /* PCMapSceneItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDB57B61E73F017000C0EE2 /* PCMapSceneItem.m */; };
+		FBDB57BC1E73F017000C0EE2 /* PCSearchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDB57B81E73F017000C0EE2 /* PCSearchItem.m */; };
 		FBEA61061E73ED9F00164549 /* MapFilterViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEA61051E73ED9F00164549 /* MapFilterViewControllerTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -86,9 +90,15 @@
 		AF19D1E5C42D009D893748CD /* Pods_bookHack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookHack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C666B354CED3C4307D3F90EE /* Pods_bookHackUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookHackUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6369F1F94B5D0F0C78EA551 /* Pods-bookHackTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookHackTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bookHackTests/Pods-bookHackTests.release.xcconfig"; sourceTree = "<group>"; };
-		FB22E7AF1E73C3340017134E /* PCMapItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCMapItem.h; sourceTree = "<group>"; };
 		FB22E7B01E73CCDC0017134E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		FBEA61031E73ED9200164549 /* PCMapItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCMapItem.h; sourceTree = "<group>"; };
+		FBDB57B11E73F017000C0EE2 /* PCMapBaseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCMapBaseItem.h; path = Model/PCMapBaseItem.h; sourceTree = "<group>"; };
+		FBDB57B21E73F017000C0EE2 /* PCMapBaseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCMapBaseItem.m; path = Model/PCMapBaseItem.m; sourceTree = "<group>"; };
+		FBDB57B31E73F017000C0EE2 /* PCMapHotelItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCMapHotelItem.h; path = Model/PCMapHotelItem.h; sourceTree = "<group>"; };
+		FBDB57B41E73F017000C0EE2 /* PCMapHotelItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCMapHotelItem.m; path = Model/PCMapHotelItem.m; sourceTree = "<group>"; };
+		FBDB57B51E73F017000C0EE2 /* PCMapSceneItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCMapSceneItem.h; path = Model/PCMapSceneItem.h; sourceTree = "<group>"; };
+		FBDB57B61E73F017000C0EE2 /* PCMapSceneItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCMapSceneItem.m; path = Model/PCMapSceneItem.m; sourceTree = "<group>"; };
+		FBDB57B71E73F017000C0EE2 /* PCSearchItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCSearchItem.h; path = Model/PCSearchItem.h; sourceTree = "<group>"; };
+		FBDB57B81E73F017000C0EE2 /* PCSearchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCSearchItem.m; path = Model/PCSearchItem.m; sourceTree = "<group>"; };
 		FBEA61041E73ED9F00164549 /* MapFilterViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapFilterViewControllerTableViewController.h; sourceTree = "<group>"; };
 		FBEA61051E73ED9F00164549 /* MapFilterViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapFilterViewControllerTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -230,7 +240,14 @@
 		894D1E921E73E4350028D196 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FB22E7AF1E73C3340017134E /* PCMapItem.h */,
+				FBDB57B11E73F017000C0EE2 /* PCMapBaseItem.h */,
+				FBDB57B21E73F017000C0EE2 /* PCMapBaseItem.m */,
+				FBDB57B31E73F017000C0EE2 /* PCMapHotelItem.h */,
+				FBDB57B41E73F017000C0EE2 /* PCMapHotelItem.m */,
+				FBDB57B51E73F017000C0EE2 /* PCMapSceneItem.h */,
+				FBDB57B61E73F017000C0EE2 /* PCMapSceneItem.m */,
+				FBDB57B71E73F017000C0EE2 /* PCSearchItem.h */,
+				FBDB57B81E73F017000C0EE2 /* PCSearchItem.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -248,7 +265,6 @@
 		89D237CB1E739FC00041FC3A /* map */ = {
 			isa = PBXGroup;
 			children = (
-				FBEA61031E73ED9200164549 /* PCMapItem.h */,
 				89D237E21E73AF1D0041FC3A /* Map.storyboard */,
 				89D237DF1E73AEC90041FC3A /* MapViewController.h */,
 				89D237E01E73AEC90041FC3A /* MapViewController.m */,
@@ -367,7 +383,7 @@
 				TargetAttributes = {
 					8913247C1E72E91F00288BA1 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = Z2U36UFBHG;
+						DevelopmentTeam = W728VZX9Y4;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -578,10 +594,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBDB57BA1E73F017000C0EE2 /* PCMapHotelItem.m in Sources */,
+				FBDB57BB1E73F017000C0EE2 /* PCMapSceneItem.m in Sources */,
 				89D237DA1E73A8AB0041FC3A /* swift-bridge.swift in Sources */,
 				891324881E72E91F00288BA1 /* ViewController.m in Sources */,
 				89260E781E73C81B00191460 /* CardView.m in Sources */,
+				FBDB57B91E73F017000C0EE2 /* PCMapBaseItem.m in Sources */,
 				891324851E72E91F00288BA1 /* AppDelegate.m in Sources */,
+				FBDB57BC1E73F017000C0EE2 /* PCSearchItem.m in Sources */,
 				891324821E72E91F00288BA1 /* main.m in Sources */,
 				89D237D61E73A28B0041FC3A /* SwipeViewController.m in Sources */,
 				8913248E1E72E91F00288BA1 /* bookHack.xcdatamodeld in Sources */,
@@ -739,7 +759,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Z2U36UFBHG;
+				DEVELOPMENT_TEAM = W728VZX9Y4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = bookHack/prefix.h;
 				INFOPLIST_FILE = bookHack/Info.plist;
@@ -762,7 +782,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Z2U36UFBHG;
+				DEVELOPMENT_TEAM = W728VZX9Y4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = bookHack/prefix.h;
 				INFOPLIST_FILE = bookHack/Info.plist;
