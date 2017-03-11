@@ -20,6 +20,10 @@
 		89260E781E73C81B00191460 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89260E771E73C81B00191460 /* CardView.m */; };
 		894D1EA51E7406280028D196 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894D1EA41E7406280028D196 /* SearchViewController.m */; };
 		894D1EA71E7406440028D196 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 894D1EA61E7406440028D196 /* Search.storyboard */; };
+		894D1EB01E7455DB0028D196 /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894D1EAE1E7455DB0028D196 /* SearchTableViewCell.m */; };
+		894D1EB11E7455DB0028D196 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894D1EAF1E7455DB0028D196 /* SearchTableViewCell.xib */; };
+		894D1EB41E7457BB0028D196 /* PCSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 894D1EB31E7457BB0028D196 /* PCSearchResult.m */; };
+		894D1EB91E747B7B0028D196 /* PCNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 894D1EB81E747B7B0028D196 /* PCNetworkManager.m */; };
 		89D237D61E73A28B0041FC3A /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D237D51E73A28B0041FC3A /* SwipeViewController.m */; };
 		89D237DA1E73A8AB0041FC3A /* swift-bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D237D91E73A8AB0041FC3A /* swift-bridge.swift */; };
 		89D237DE1E73AE8F0041FC3A /* Swipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89D237DD1E73AE8F0041FC3A /* Swipe.storyboard */; };
@@ -81,6 +85,13 @@
 		894D1EA31E7406280028D196 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = View/Intro/SearchViewController.h; sourceTree = "<group>"; };
 		894D1EA41E7406280028D196 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = View/Intro/SearchViewController.m; sourceTree = "<group>"; };
 		894D1EA61E7406440028D196 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = View/Intro/Search.storyboard; sourceTree = "<group>"; };
+		894D1EAD1E7455DB0028D196 /* SearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchTableViewCell.h; path = View/Intro/SearchTableViewCell.h; sourceTree = "<group>"; };
+		894D1EAE1E7455DB0028D196 /* SearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchTableViewCell.m; path = View/Intro/SearchTableViewCell.m; sourceTree = "<group>"; };
+		894D1EAF1E7455DB0028D196 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchTableViewCell.xib; path = View/Intro/SearchTableViewCell.xib; sourceTree = "<group>"; };
+		894D1EB21E7457BB0028D196 /* PCSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCSearchResult.h; path = Model/PCSearchResult.h; sourceTree = "<group>"; };
+		894D1EB31E7457BB0028D196 /* PCSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCSearchResult.m; path = Model/PCSearchResult.m; sourceTree = "<group>"; };
+		894D1EB71E747B7B0028D196 /* PCNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCNetworkManager.h; path = module/Network/PCNetworkManager.h; sourceTree = "<group>"; };
+		894D1EB81E747B7B0028D196 /* PCNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCNetworkManager.m; path = module/Network/PCNetworkManager.m; sourceTree = "<group>"; };
 		89A6C49F1E72FF72000C44D3 /* prefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prefix.h; sourceTree = "<group>"; };
 		89D169870A77BC2B8ECD8458 /* Pods_bookHackTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookHackTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D237D41E73A28B0041FC3A /* SwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwipeViewController.h; path = View/Swipe/SwipeViewController.h; sourceTree = "<group>"; };
@@ -253,8 +264,20 @@
 				FBDB57B61E73F017000C0EE2 /* PCMapSceneItem.m */,
 				FBDB57B71E73F017000C0EE2 /* PCSearchItem.h */,
 				FBDB57B81E73F017000C0EE2 /* PCSearchItem.m */,
+				894D1EB21E7457BB0028D196 /* PCSearchResult.h */,
+				894D1EB31E7457BB0028D196 /* PCSearchResult.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		894D1EA81E7454DB0028D196 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				894D1EAD1E7455DB0028D196 /* SearchTableViewCell.h */,
+				894D1EAE1E7455DB0028D196 /* SearchTableViewCell.m */,
+				894D1EAF1E7455DB0028D196 /* SearchTableViewCell.xib */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		89D237CA1E739ED40041FC3A /* Views */ = {
@@ -293,6 +316,7 @@
 		89D237CD1E739FD30041FC3A /* intro */ = {
 			isa = PBXGroup;
 			children = (
+				894D1EA81E7454DB0028D196 /* Cell */,
 				894D1EA31E7406280028D196 /* SearchViewController.h */,
 				894D1EA41E7406280028D196 /* SearchViewController.m */,
 				894D1EA61E7406440028D196 /* Search.storyboard */,
@@ -311,6 +335,8 @@
 		89D237CF1E739FE30041FC3A /* networking */ = {
 			isa = PBXGroup;
 			children = (
+				894D1EB71E747B7B0028D196 /* PCNetworkManager.h */,
+				894D1EB81E747B7B0028D196 /* PCNetworkManager.m */,
 			);
 			name = networking;
 			sourceTree = "<group>";
@@ -436,6 +462,7 @@
 			files = (
 				891324931E72E91F00288BA1 /* LaunchScreen.storyboard in Resources */,
 				891324901E72E91F00288BA1 /* Assets.xcassets in Resources */,
+				894D1EB11E7455DB0028D196 /* SearchTableViewCell.xib in Resources */,
 				89260E751E73C48B00191460 /* CardView.xib in Resources */,
 				89D237E31E73AF1D0041FC3A /* Map.storyboard in Resources */,
 				894D1EA71E7406440028D196 /* Search.storyboard in Resources */,
@@ -606,9 +633,11 @@
 				FBDB57BA1E73F017000C0EE2 /* PCMapHotelItem.m in Sources */,
 				FBDB57BB1E73F017000C0EE2 /* PCMapSceneItem.m in Sources */,
 				89D237DA1E73A8AB0041FC3A /* swift-bridge.swift in Sources */,
+				894D1EB41E7457BB0028D196 /* PCSearchResult.m in Sources */,
 				891324881E72E91F00288BA1 /* ViewController.m in Sources */,
 				89260E781E73C81B00191460 /* CardView.m in Sources */,
 				FBDB57B91E73F017000C0EE2 /* PCMapBaseItem.m in Sources */,
+				894D1EB91E747B7B0028D196 /* PCNetworkManager.m in Sources */,
 				894D1EA51E7406280028D196 /* SearchViewController.m in Sources */,
 				891324851E72E91F00288BA1 /* AppDelegate.m in Sources */,
 				FBDB57BC1E73F017000C0EE2 /* PCSearchItem.m in Sources */,
@@ -617,6 +646,7 @@
 				8913248E1E72E91F00288BA1 /* bookHack.xcdatamodeld in Sources */,
 				89D237E11E73AEC90041FC3A /* MapViewController.m in Sources */,
 				FBEA61061E73ED9F00164549 /* MapFilterViewControllerTableViewController.m in Sources */,
+				894D1EB01E7455DB0028D196 /* SearchTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -773,7 +803,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = bookHack/prefix.h;
 				INFOPLIST_FILE = bookHack/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULEMAP_FILE = bookHack;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MJ.bookHack;
@@ -796,7 +826,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = bookHack/prefix.h;
 				INFOPLIST_FILE = bookHack/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULEMAP_FILE = bookHack;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MJ.bookHack;

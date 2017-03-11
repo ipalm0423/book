@@ -15,3 +15,5 @@
 #import "PCMapHotelItem.h"
 #import "PCMapSceneItem.h"
 #import "PCSearchItem.h"
+#import "PCSearchResult.h"
+#import "PCNetworkManager.h"
