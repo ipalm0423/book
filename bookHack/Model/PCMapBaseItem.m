@@ -10,4 +10,16 @@
 
 @implementation PCMapBaseItem
 
+- (NSString *)title {
+    return _name;
+}
+
+- (PCMapBaseItem *)initWithLocation: (CLLocation *)location name: (NSString *)name {
+    if (self = [super init]) {
+        _coordinate = location.coordinate;
+        _name = name;
+    }
+    return self;
+}
+
 @end

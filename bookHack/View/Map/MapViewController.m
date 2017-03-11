@@ -8,6 +8,10 @@
 
 #import "MapViewController.h"
 #import <MapKit/MapKit.h>
+#import "PCSearchItem.h"
+#import "PCMapBaseItem.h"
+#import "PCMapHotelItem.h"
+#import "PCMapSceneItem.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -23,7 +27,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(-35.1848, 149.7147), MKCoordinateSpanMake(1.0, 1.0));
+    
+    if (_userSearchItem == nil) {
+        _userSearchItem = [PCSearchItem new];
+        _userSearchItem.location = [[CLLocation alloc] initWithLatitude:-33.880837 longitude:151.205606];
+        _sceneMapItems = @[
+                           [[PCMapBaseItem alloc] initWithLocation:[[CLLocation alloc] initWithLatitude:-33.880837 longitude:151.205606]
+                                                              name:@"Scene A"],
+                           [[PCMapBaseItem alloc] initWithLocation:[[CLLocation alloc] initWithLatitude:-33.881837 longitude:151.205606]
+                                                              name:@"Scene B"],
+                           [[PCMapBaseItem alloc] initWithLocation:[[CLLocation alloc] initWithLatitude:-33.880837 longitude:151.202606]
+                                                              name:@"Scene C"]
+                           ];
+    }
+    
+    mapView.region = MKCoordinateRegionMakeWithDistance(_userSearchItem.location.coordinate, 2000, 2000);
+    for (PCMapBaseItem *mapItem in _sceneMapItems) {
+    }
 }
 
 - (void)didReceiveMemoryWarning {

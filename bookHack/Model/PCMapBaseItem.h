@@ -7,12 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface PCMapBaseItem : NSObject
-@property (strong, nonatomic) CLLocation *location;
+@interface PCMapBaseItem : NSObject<MKAnnotation>
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *detail;
 @property (strong, nonatomic) NSURL *thumbnailImageURL;
 @property (strong, nonatomic) NSMutableArray *detailImageURLs;
+
+- (PCMapBaseItem *)initWithLocation: (CLLocation *)location name: (NSString *)name;
 @end
