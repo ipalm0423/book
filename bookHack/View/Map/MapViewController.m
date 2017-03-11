@@ -49,7 +49,9 @@
                            ];
     }
     
-    mapView.region = MKCoordinateRegionMakeWithDistance(_userSearchItem.location.coordinate, 2000, 2000);
+    mapView.region = MKCoordinateRegionMakeWithDistance(_userSearchItem.location.coordinate, 5000, 5000);
+    [mapView addOverlay:[MKCircle circleWithCenterCoordinate:_userSearchItem.location.coordinate radius:1000]];
+    [mapView addOverlay:[MKCircle circleWithCenterCoordinate:_userSearchItem.location.coordinate radius:2000]];
     for (PCMapBaseItem *mapItem in _sceneMapItems) {
         [mapView addAnnotation:mapItem];
     }
@@ -114,6 +116,24 @@
 
 - (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
     
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay {
+    MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithOverlay:overlay];
+    circleRenderer.lineWidth = 2;
+    if ([overlay isKindOfClass:[MKCircle class]]) {
+        MKCircle *circle = (MKCircle *)overlay;
+        if (circle.radius <= 1000) {
+            circleRenderer.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.6];
+            circleRenderer.fillColor = [[UIColor blueColor] colorWithAlphaComponent:0.2];
+        }
+        else {
+            circleRenderer.strokeColor = [[UIColor redColor] colorWithAlphaComponent:0.3];
+            circleRenderer.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.1];
+        }
+    }
+    
+    return circleRenderer;
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
