@@ -27,6 +27,7 @@
 		C1E328E5C14020EE558EBADD /* Pods_bookHackUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C666B354CED3C4307D3F90EE /* Pods_bookHackUITests.framework */; };
 		E6F8C96EC28CE78356054ACD /* Pods_bookHackTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D169870A77BC2B8ECD8458 /* Pods_bookHackTests.framework */; };
 		FB22E7B11E73CCDC0017134E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB22E7B01E73CCDC0017134E /* MapKit.framework */; };
+		FBEA61061E73ED9F00164549 /* MapFilterViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEA61051E73ED9F00164549 /* MapFilterViewControllerTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,9 @@
 		F6369F1F94B5D0F0C78EA551 /* Pods-bookHackTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookHackTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bookHackTests/Pods-bookHackTests.release.xcconfig"; sourceTree = "<group>"; };
 		FB22E7AF1E73C3340017134E /* PCMapItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCMapItem.h; sourceTree = "<group>"; };
 		FB22E7B01E73CCDC0017134E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		FBEA61031E73ED9200164549 /* PCMapItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCMapItem.h; sourceTree = "<group>"; };
+		FBEA61041E73ED9F00164549 /* MapFilterViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapFilterViewControllerTableViewController.h; sourceTree = "<group>"; };
+		FBEA61051E73ED9F00164549 /* MapFilterViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapFilterViewControllerTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,9 +248,12 @@
 		89D237CB1E739FC00041FC3A /* map */ = {
 			isa = PBXGroup;
 			children = (
+				FBEA61031E73ED9200164549 /* PCMapItem.h */,
 				89D237E21E73AF1D0041FC3A /* Map.storyboard */,
 				89D237DF1E73AEC90041FC3A /* MapViewController.h */,
 				89D237E01E73AEC90041FC3A /* MapViewController.m */,
+				FBEA61041E73ED9F00164549 /* MapFilterViewControllerTableViewController.h */,
+				FBEA61051E73ED9F00164549 /* MapFilterViewControllerTableViewController.m */,
 			);
 			name = map;
 			sourceTree = "<group>";
@@ -579,6 +586,7 @@
 				89D237D61E73A28B0041FC3A /* SwipeViewController.m in Sources */,
 				8913248E1E72E91F00288BA1 /* bookHack.xcdatamodeld in Sources */,
 				89D237E11E73AEC90041FC3A /* MapViewController.m in Sources */,
+				FBEA61061E73ED9F00164549 /* MapFilterViewControllerTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
