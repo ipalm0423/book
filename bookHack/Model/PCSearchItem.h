@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 @interface PCSearchItem : NSObject
+@property (strong, nonatomic) CLLocation *location;
 @property (strong, nonatomic) NSString *targetPlace;
 @property (strong, nonatomic) NSNumber *numberOfPeople;
 @property (strong, nonatomic) NSDate *checkInDate;
