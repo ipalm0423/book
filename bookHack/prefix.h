@@ -12,5 +12,6 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <SDWebImage/SDImageCache.h>
 #import "bookHack-Swift.h"
-#import "PCMapItem.h"
+#import "PCMapHotelItem.h"
+#import "PCMapSceneItem.h"
 
