@@ -75,6 +75,13 @@ typedef enum : NSInteger {
     // Dispose of any resources that can be recreated.
 }
 
+- (CGSize)preferredContentSize
+{
+    // Force the table view to calculate its height
+    [self.tableView layoutIfNeeded];
+    return self.tableView.contentSize;
+}
+
 - (IBAction)rangeChanged:(MARKRangeSlider *)sender {
     labelPriceRange.text = [NSString stringWithFormat:@"$%d - $%d", (int)sender.leftValue, (int)sender.rightValue];
     cellPrice.detailTextLabel.text = [NSString stringWithFormat:@"$%d - $%d", (int)sender.leftValue, (int)sender.rightValue];
@@ -157,6 +164,9 @@ typedef enum : NSInteger {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (currentFilter == PCFilterNone || indexPath.row == 0) {
+        return 40;
+    }
     return UITableViewAutomaticDimension;
 }
 

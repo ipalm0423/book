@@ -26,6 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _containerViewHeightConstraint.constant = 0;
+    containerView.translatesAutoresizingMaskIntoConstraints = false;
     if (_userSearchItem == nil) {
         _userSearchItem = [PCSearchItem new];
         _userSearchItem.location = [[CLLocation alloc] initWithLatitude:-33.880837 longitude:151.205606];
@@ -66,13 +67,6 @@
 - (void)updateViewConstraints {
     [super updateViewConstraints];
     
-}
-
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    if ([containerView isKindOfClass:[UITableView class]]) {
-        _containerViewHeightConstraint.constant = ((UITableView *)containerView).contentSize.height;
-    }
 }
 
 - (IBAction)someAction:(id)sender {
