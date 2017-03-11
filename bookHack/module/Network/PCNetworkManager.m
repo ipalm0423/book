@@ -7,14 +7,33 @@
 //
 
 #import "PCNetworkManager.h"
-static NSString *const GoogleKey = @"AIzaSyAUlF-CDK8FqvWwwKJfFEkLw-LVDxFWlZ0";
+@import GoogleMaps;
+@import GooglePlaces;
+
+static NSString *const GoogleKey = @"AIzaSyBZ3urs5fuTVlzLaWxNoqU0a_jpCacxlBk";
+
+#pragma mark - address
+
+
+#pragma mark - Singelton
 static PCNetworkManager *shareInstance;
 static dispatch_once_t context;
-@implementation PCNetworkManager
+@implementation PCNetworkManager{
+    AFHTTPSessionManager *manager;
+    GMSPlacesClient *_placeClient;
+}
 
 -(instancetype)init{
     if (self = [super init]) {
-        
+        manager = [AFHTTPSessionManager manager];
+        manager.securityPolicy.allowInvalidCertificates = YES;
+        [manager.securityPolicy setValidatesDomainName:NO
+         ];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        [GMSServices provideAPIKey:GoogleKey];
+        _placeClient = [[GMSPlacesClient alloc] init];
+        [GMSPlacesClient provideAPIKey:GoogleKey];
     }
     return self;
 }
@@ -29,14 +48,19 @@ static dispatch_once_t context;
     return shareInstance;
 }
 
--(void)getSearchResultByKeyword:(NSString*)keyword{
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager POST:@"https://maps.googleapis.com/maps/api/place/autocomplete/json" parameters:@{@"input":keyword, @"key":GoogleKey} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"get search result success:%@", responseObject);
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"get search result error:%@", error.localizedDescription);
-    }];
+-(void)getSearchResultByKeyword:(NSString *)keyword completionBlock:(void (^)(NSArray *))completion{
+
+    GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc]init];
+    filter.type = kGMSPlacesAutocompleteTypeFilterCity;
     
+    [[GMSPlacesClient sharedClient] autocompleteQuery:[keyword stringByReplacingOccurrencesOfString:@" " withString:@"+"] bounds:nil filter:filter callback:^(NSArray<GMSAutocompletePrediction *> * _Nullable results, NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Autocomplete error %@", [error localizedDescription]);
+            return;
+        }
+        if (completion) {
+            completion(results);
+        }
+    }];
 }
 @end

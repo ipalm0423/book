@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+@import GooglePlaces;
 
 @interface PCNetworkManager : NSObject
 
-+(PCNetworkManager*)shareInstance;
++(PCNetworkManager*_Nullable)shareInstance;
 
+
+-(void)getSearchResultByKeyword:(NSString*)keyword completionBlock:(void(^)(NSArray *results))completion;
 @end
