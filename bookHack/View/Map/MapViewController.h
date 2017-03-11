@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PCSearchItem.h"
 
 @interface MapViewController : UIViewController
-@property (strong, nonatomic) NSArray *mapItems;
-
+@property (strong, nonatomic) NSArray *hotelMapItems;
+@property (strong, nonatomic) NSArray *sceneMapItems;
+@property (strong, nonatomic) PCSearchItem *userSearchItem;
 @end
