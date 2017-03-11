@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "bookHack-Swift.h"
+#import "ZLSwipeableView.h"
 
-@interface SwipeViewController : UIViewController
+@interface SwipeViewController : UIViewController<ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
 
 
 

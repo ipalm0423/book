@@ -1,7 +1,49 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Swipe View Controller-->
+        <scene sceneID="jWL-Cn-Fgm">
+            <objects>
+                <viewController storyboardIdentifier="SwipeViewID" id="GCO-oB-Ky3" customClass="SwipeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eyn-Gg-N10"/>
+                        <viewControllerLayoutGuide type="bottom" id="P0w-RZ-grZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d8w-2A-SyY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <userGuides>
+                            <userLayoutGuide location="268" affinity="minY"/>
+                            <userLayoutGuide location="268" affinity="minY"/>
+                        </userGuides>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Prj-t2-UoU" customClass="ZLSwipeableView">
+                                <rect key="frame" x="50" y="50" width="275" height="517"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Prj-t2-UoU" firstAttribute="top" secondItem="eyn-Gg-N10" secondAttribute="bottom" constant="30" id="0ke-Er-xMu"/>
+                            <constraint firstItem="P0w-RZ-grZ" firstAttribute="top" secondItem="Prj-t2-UoU" secondAttribute="bottom" constant="100" id="B5L-4G-cri"/>
+                            <constraint firstAttribute="trailing" secondItem="Prj-t2-UoU" secondAttribute="trailing" constant="50" id="GHN-a8-69c"/>
+                            <constraint firstItem="Prj-t2-UoU" firstAttribute="leading" secondItem="d8w-2A-SyY" secondAttribute="leading" constant="50" id="tUl-Hs-dhF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="swipeableView" destination="Prj-t2-UoU" id="HHC-ba-Ye5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ajL-79-C4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-238" y="206"/>
+        </scene>
+    </scenes>
 </document>

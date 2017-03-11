@@ -16,6 +16,8 @@
 		891324931E72E91F00288BA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 891324911E72E91F00288BA1 /* LaunchScreen.storyboard */; };
 		8913249E1E72E91F00288BA1 /* bookHackTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8913249D1E72E91F00288BA1 /* bookHackTests.m */; };
 		891324A91E72E91F00288BA1 /* bookHackUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 891324A81E72E91F00288BA1 /* bookHackUITests.m */; };
+		89260E751E73C48B00191460 /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89260E741E73C48B00191460 /* CardView.xib */; };
+		89260E781E73C81B00191460 /* CardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89260E771E73C81B00191460 /* CardView.m */; };
 		89D237D61E73A28B0041FC3A /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D237D51E73A28B0041FC3A /* SwipeViewController.m */; };
 		89D237DA1E73A8AB0041FC3A /* swift-bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D237D91E73A8AB0041FC3A /* swift-bridge.swift */; };
 		89D237DE1E73AE8F0041FC3A /* Swipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89D237DD1E73AE8F0041FC3A /* Swipe.storyboard */; };
@@ -65,6 +67,9 @@
 		891324A41E72E91F00288BA1 /* bookHackUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bookHackUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		891324A81E72E91F00288BA1 /* bookHackUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = bookHackUITests.m; sourceTree = "<group>"; };
 		891324AA1E72E91F00288BA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89260E741E73C48B00191460 /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CardView.xib; path = View/Swipe/CardView/CardView.xib; sourceTree = "<group>"; };
+		89260E761E73C81B00191460 /* CardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardView.h; path = View/Swipe/CardView/CardView.h; sourceTree = "<group>"; };
+		89260E771E73C81B00191460 /* CardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardView.m; path = View/Swipe/CardView/CardView.m; sourceTree = "<group>"; };
 		89A6C49F1E72FF72000C44D3 /* prefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prefix.h; sourceTree = "<group>"; };
 		89D169870A77BC2B8ECD8458 /* Pods_bookHackTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookHackTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89D237D41E73A28B0041FC3A /* SwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwipeViewController.h; path = View/Swipe/SwipeViewController.h; sourceTree = "<group>"; };
@@ -202,6 +207,16 @@
 			path = bookHackUITests;
 			sourceTree = "<group>";
 		};
+		89260E731E73C46A00191460 /* cardView */ = {
+			isa = PBXGroup;
+			children = (
+				89260E741E73C48B00191460 /* CardView.xib */,
+				89260E761E73C81B00191460 /* CardView.h */,
+				89260E771E73C81B00191460 /* CardView.m */,
+			);
+			name = cardView;
+			sourceTree = "<group>";
+		};
 		89D237CA1E739ED40041FC3A /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +240,7 @@
 		89D237CC1E739FC90041FC3A /* swipe */ = {
 			isa = PBXGroup;
 			children = (
+				89260E731E73C46A00191460 /* cardView */,
 				89D237D41E73A28B0041FC3A /* SwipeViewController.h */,
 				89D237D51E73A28B0041FC3A /* SwipeViewController.m */,
 				89D237DD1E73AE8F0041FC3A /* Swipe.storyboard */,
@@ -375,6 +391,7 @@
 			files = (
 				891324931E72E91F00288BA1 /* LaunchScreen.storyboard in Resources */,
 				891324901E72E91F00288BA1 /* Assets.xcassets in Resources */,
+				89260E751E73C48B00191460 /* CardView.xib in Resources */,
 				89D237E31E73AF1D0041FC3A /* Map.storyboard in Resources */,
 				89D237DE1E73AE8F0041FC3A /* Swipe.storyboard in Resources */,
 				8913248B1E72E91F00288BA1 /* Main.storyboard in Resources */,
@@ -542,6 +559,7 @@
 			files = (
 				89D237DA1E73A8AB0041FC3A /* swift-bridge.swift in Sources */,
 				891324881E72E91F00288BA1 /* ViewController.m in Sources */,
+				89260E781E73C81B00191460 /* CardView.m in Sources */,
 				891324851E72E91F00288BA1 /* AppDelegate.m in Sources */,
 				891324821E72E91F00288BA1 /* main.m in Sources */,
 				89D237D61E73A28B0041FC3A /* SwipeViewController.m in Sources */,
@@ -695,6 +713,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 65B1468299C536AC4E3DDF0F /* Pods-bookHack.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
@@ -717,6 +736,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6101F671A16D051A50C383A0 /* Pods-bookHack.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
