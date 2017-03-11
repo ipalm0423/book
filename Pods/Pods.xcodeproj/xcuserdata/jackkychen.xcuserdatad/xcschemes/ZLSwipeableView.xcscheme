@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '68B47C620E6882D23ACF7A33DE6B520E'
-               BlueprintName = 'Pods-bookHackUITests'
+               BlueprintIdentifier = '46C6CBA7BB1C1D684CE95C9D14A8FB36'
+               BlueprintName = 'ZLSwipeableView'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Pods-bookHackUITests.framework'>
+               BuildableName = 'ZLSwipeableView.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
