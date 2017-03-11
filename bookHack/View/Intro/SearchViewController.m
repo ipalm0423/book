@@ -7,22 +7,179 @@
 //
 
 #import "SearchViewController.h"
+#import "SearchTableViewCell.h"
 
-@interface SearchViewController ()
+@interface SearchViewController ()<UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) IBOutlet UIImageView *imageViewBackground;
+@property (strong, nonatomic) IBOutlet UITextField *inputField;
+
+@property (strong, nonatomic) UITableView *tableView;
 @end
 
-@implementation SearchViewController
+@implementation SearchViewController{
+    NSTimer *headerTimer;
+    NSArray *headerTexts;
+    NSArray *placeHolderColor;
+    NSInteger headerIndex;
+    NSArray *imageNames;
+    NSInteger imageIndex;
+    NSTimer *imageTimer;
+   
+    //search result
+    NSArray *searchResults;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setupView];
+    [self setupViewData];
+    [self switchHeaderLabelText];
+    [self switchBackgroundImageView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self startAnimateView];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self stopAnimateView];
+}
+
+#pragma mark - View
+-(void)setupView{
+    //field
+    self.inputField.delegate = self;
+    [self.inputField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    //imageView
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyboard:)];
+    tapGesture.numberOfTapsRequired = 1;
+    [self.imageViewBackground addGestureRecognizer:tapGesture];
+    [self.imageViewBackground setUserInteractionEnabled:YES];
+}
+-(void)switchHeaderLabelText{
+    headerIndex ++;
+    headerIndex = headerIndex % headerTexts.count;
+    self.inputField.placeholder = headerTexts[headerIndex];
+    [self switchInputFieldPlaceHolderColor];
+    NSLog(@"switch header label:%@", headerTexts[headerIndex]);
+}
+
+-(void)switchBackgroundImageView{
+    imageIndex ++;
+    imageIndex = imageIndex % imageNames.count;
+    self.imageViewBackground.image = [UIImage imageNamed:imageNames[imageIndex]];
+    
+    NSLog(@"switch background image:%@", imageNames[imageIndex]);
+}
+
+-(void)switchInputFieldPlaceHolderColor{
+    [self.inputField setValue:placeHolderColor[imageIndex]
+                    forKeyPath:@"_placeholderLabel.textColor"];
+}
+-(void)showTableView{
+    if (self.tableView == nil) {
+        self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(10, 150, self.view.frame.size.width-20, 130)];
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+        self.tableView.layer.cornerRadius = 5;
+        self.tableView.clipsToBounds = YES;
+        [self.view addSubview:self.tableView];
+    }
+    self.tableView.alpha = 0.8;
+    [self.tableView registerClass:[SearchTableViewCell class] forCellReuseIdentifier:@"searchCell"];
+    [self.tableView reloadData];
+}
+
+-(void)dismissTableView{
+    self.tableView.alpha = 0;
+}
+
+-(void)hideKeyboard:(UIGestureRecognizer*)gesture{
+    [self.inputField resignFirstResponder];
+}
+#pragma mark - Data
+-(void)setupViewData{
+    headerTexts = @[@"Where To Fun ?", @"Where To Go ?", @"Where To Trip ?"];
+    imageNames = @[@"ca0",@"dt0",@"dt1",@"eng0", @"eng1", @"jp0", @"jp1", @"tw0", @"tw1"];
+    placeHolderColor = @[[UIColor whiteColor],[UIColor whiteColor], [UIColor whiteColor], [UIColor darkGrayColor], [UIColor whiteColor], [UIColor whiteColor], [UIColor whiteColor], [UIColor whiteColor],[UIColor whiteColor]];
+    searchResults = [NSMutableArray new];
+}
+
+
+-(void)loadTestResultData{
+    PCSearchResult *result0 = [[PCSearchResult alloc]init];
+    result0.name = @"Paris";
+    
+    PCSearchResult *result1 = [[PCSearchResult alloc]init];
+    result1.name = @"Japan";
+    
+    searchResults = @[result0, result1];
+}
+
+#pragma mark - Timer
+-(void)startAnimateView{
+    imageTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(switchBackgroundImageView) userInfo:nil repeats:YES];
+    headerTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(switchHeaderLabelText) userInfo:nil repeats:YES];
+    imageIndex = 0;
+    headerIndex = 0;
+}
+-(void)stopAnimateView{
+    [imageTimer invalidate];
+    imageTimer = nil;
+    [headerTimer invalidate];
+    headerTimer = nil;
+}
+
+#pragma mark - UITextFieldDelegate
+-(BOOL)textFieldDidChange:(UITextField*)textField{
+    NSLog(@"text field text:%@", self.inputField.text);
+    if (self.inputField.text && self.inputField.text.length > 0) {
+        [self showTableView];
+    }else{
+        [self dismissTableView];
+    }
+    return YES;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - UITableViewDelegate, UITableViewDataSource
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return searchResults.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    SearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell" forIndexPath:indexPath];
+    PCSearchResult *result = searchResults[indexPath.row];
+    cell.labelMain.text = result.name;
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    PCSearchResult *result = searchResults[indexPath.row];
+    NSLog(@"select search hint for: %@", result.name);
+}
+
+#pragma mark - Network
+
+
 
 /*
 #pragma mark - Navigation

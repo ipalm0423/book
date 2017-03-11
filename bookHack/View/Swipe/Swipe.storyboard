@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9Rs-p4-hG4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -26,7 +26,7 @@
                         </userGuides>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Prj-t2-UoU" customClass="ZLSwipeableView">
-                                <rect key="frame" x="50" y="50" width="275" height="517"/>
+                                <rect key="frame" x="50" y="94" width="275" height="473"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8aV-fx-Ybg">
@@ -82,6 +82,7 @@
                             <constraint firstItem="pkN-Q0-iRV" firstAttribute="centerX" secondItem="d8w-2A-SyY" secondAttribute="centerX" id="wgG-SI-y3g"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="efu-cD-4vK"/>
                     <connections>
                         <outlet property="buttonDelete" destination="UJ6-0g-66l" id="Dyg-qI-Ktd"/>
                         <outlet property="buttonFavor" destination="pMv-ST-9zM" id="buH-Jl-gP8"/>
@@ -92,7 +93,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ajL-79-C4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-238" y="206"/>
+            <point key="canvasLocation" x="700" y="205.54722638680661"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pCL-yH-bKf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9Rs-p4-hG4" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eLc-eU-XCB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GCO-oB-Ky3" kind="relationship" relationship="rootViewController" id="at6-Pz-PJU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1UT-NX-3OI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-239.19999999999999" y="205.54722638680661"/>
         </scene>
     </scenes>
     <resources>

@@ -9,6 +9,7 @@
 #import "SwipeViewController.h"
 #import "CardView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "MapViewController.h"
 
 @interface SwipeViewController ()
 
@@ -22,6 +23,7 @@
 
 @property (nonatomic) NSInteger currentIndex;
 @property (strong, nonatomic) NSMutableArray *favoriteList;
+@property (strong, nonatomic) NSMutableArray *relatedHotelList;
 @end
 
 @implementation SwipeViewController
@@ -48,10 +50,10 @@
     [[self.buttonDelete imageView] setContentMode: UIViewContentModeScaleAspectFit];
     [[self.buttonRetry imageView] setContentMode: UIViewContentModeScaleAspectFit];
     //hide retry button at first time
-    [self switchToRetryButton:NO];
+    [self showRetryButton:NO];
 }
 
--(void)switchToRetryButton:(BOOL)isRetry{
+-(void)showRetryButton:(BOOL)isRetry{
     if (isRetry) {
         [UIView animateWithDuration:0.5 animations:^{
             self.buttonRetry.alpha = 1;
@@ -75,16 +77,26 @@
 }
 
 -(void)loadTestData{
-    PCMapSceneItem *item0 = [[PCMapSceneItem alloc]init];
-    item0.name = @"0";
-    item0.thumbnailImageURL = [NSURL URLWithString:@"https://i.imgur.com/50JrTK9.jpg"];
-    PCMapSceneItem *item1 = [[PCMapSceneItem alloc]init];
-    item1.name = @"1";
-    item1.thumbnailImageURL = [NSURL URLWithString:@"http://i.imgur.com/mt06zny.jpg"];
-    PCMapSceneItem *item2 = [[PCMapSceneItem alloc]init];
-    item2.name = @"2";
-    item2.thumbnailImageURL = [NSURL URLWithString:@"http://i.imgur.com/CjpjZfK.jpg"];
+    PCMapSceneItem *item0 = [[PCMapSceneItem alloc]initWithLocation:[[CLLocation alloc] initWithLatitude:25.0380339 longitude:121.5014004] name:@"台北植物園"];
+    item0.thumbnailImageURL = [NSURL URLWithString:@"https://lh4.googleusercontent.com/proxy/LPtqpIUNOQNtbmuLaBylddZLtFiuQ_QvU6XFmiv8R5tGAXMF_FWgZVixLs5QbwifkmdwakllQGhbkTNwrn352uI13S-0fJDMfu_ejlAB51pbI6XSmNPjiADFpJa-szPqylV0XPIMX5M3c5XY17qYsa6VoJcX10k=w408-h305"];
+    
+    PCMapSceneItem *item1 = [[PCMapSceneItem alloc]initWithLocation:[[CLLocation alloc] initWithLatitude:24.9865959 longitude:121.5424077] name:@"光點台北"];
+    item1.thumbnailImageURL = [NSURL URLWithString:@"https://lh6.googleusercontent.com/proxy/IvgfqO7csUgAJBPho0llNwy6V4Q8BMb1fEu5OiphnlsaYx5rXBZOngwDjAJgYXHI4am7_MGz72xCjejk0GsCql86lwuk-uNafgsfCY6-nflgXcWUlEkpxxWsIomcO0zBSv8T2tY39U_A0pjxrAIkkOdm18CUSw=w528-h200"];
+    PCMapSceneItem *item2 = [[PCMapSceneItem alloc]initWithLocation:[[CLLocation alloc] initWithLatitude:25.0336322 longitude:121.5074203] name:@"龍山寺"];
+    item2.thumbnailImageURL = [NSURL URLWithString:@"https://lh6.googleusercontent.com/proxy/U6jSB6YG_V_-vClVtzQbS2JpNhWJd1800ufoe4gXUtR1mCPnLV_DY_553W6ZLAqEB5XvJEZnIu-ZHiEJfB0S_xeWEWXZ3ebSaCEcTmCA6dftEb0Ia4UDpTB2D9vQw2IxrZlOFBCmS_IEpit-5ZVW8lXFGx4m5Yk=w408-h271"];
     self.candidates = [NSMutableArray arrayWithObjects:item0, item1, item2, nil];
+    
+    //search
+    self.searchItem = [[PCSearchItem alloc]init];
+    self.searchItem.targetPlace = @"台北";
+    self.searchItem.location = [[CLLocation alloc]initWithLatitude:25.049015 longitude:121.519618];
+    self.searchItem.numberOfPeople = @1;
+    self.searchItem.checkInDate = [NSDate dateWithTimeIntervalSinceNow:60*60*24*7];
+    self.searchItem.checkInDate = [NSDate dateWithTimeIntervalSinceNow:60*60*24*14];
+    
+    
+    //hotel
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -115,10 +127,17 @@
     if (self.favoriteList.count > 0) {
         //post for hotel
         
+        //show map view
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Map" bundle:nil];
+        MapViewController *mapVC = [storyBoard instantiateInitialViewController];
+        mapVC.hotelMapItems = self.relatedHotelList;
+        mapVC.sceneMapItems = self.favoriteList;
+        mapVC.userSearchItem = self.searchItem;
+        
+        [self.navigationController pushViewController:mapVC animated:YES];
     }else{
         //show retry view
-        [self switchToRetryButton:YES];
-        
+        [self showRetryButton:YES];
     }
 }
 
@@ -138,7 +157,9 @@
 
 - (IBAction)touchRetryButton:(UIButton *)sender {
     //TODO:retry
-    
+    [self loadTestData];
+    [self loadSwipeView];
+    [self showRetryButton:NO];
 }
 #pragma mark - ZLSwipeableViewDataSource
 -(UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView{
