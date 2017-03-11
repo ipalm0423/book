@@ -26,6 +26,7 @@
 		8ABAE6C6222D83CC1201E4A0 /* Pods_bookHack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF19D1E5C42D009D893748CD /* Pods_bookHack.framework */; };
 		C1E328E5C14020EE558EBADD /* Pods_bookHackUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C666B354CED3C4307D3F90EE /* Pods_bookHackUITests.framework */; };
 		E6F8C96EC28CE78356054ACD /* Pods_bookHackTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D169870A77BC2B8ECD8458 /* Pods_bookHackTests.framework */; };
+		FB22E7B11E73CCDC0017134E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB22E7B01E73CCDC0017134E /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,8 @@
 		AF19D1E5C42D009D893748CD /* Pods_bookHack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookHack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C666B354CED3C4307D3F90EE /* Pods_bookHackUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookHackUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6369F1F94B5D0F0C78EA551 /* Pods-bookHackTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookHackTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bookHackTests/Pods-bookHackTests.release.xcconfig"; sourceTree = "<group>"; };
+		FB22E7AF1E73C3340017134E /* PCMapItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCMapItem.h; sourceTree = "<group>"; };
+		FB22E7B01E73CCDC0017134E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB22E7B11E73CCDC0017134E /* MapKit.framework in Frameworks */,
 				8ABAE6C6222D83CC1201E4A0 /* Pods_bookHack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,6 +134,7 @@
 		724F560A53A6A3739024B332 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB22E7B01E73CCDC0017134E /* MapKit.framework */,
 				AF19D1E5C42D009D893748CD /* Pods_bookHack.framework */,
 				89D169870A77BC2B8ECD8458 /* Pods_bookHackTests.framework */,
 				C666B354CED3C4307D3F90EE /* Pods_bookHackUITests.framework */,
@@ -233,6 +238,7 @@
 				89D237E21E73AF1D0041FC3A /* Map.storyboard */,
 				89D237DF1E73AEC90041FC3A /* MapViewController.h */,
 				89D237E01E73AEC90041FC3A /* MapViewController.m */,
+				FB22E7AF1E73C3340017134E /* PCMapItem.h */,
 			);
 			name = map;
 			sourceTree = "<group>";
@@ -721,7 +727,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = bookHack/prefix.h;
 				INFOPLIST_FILE = bookHack/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULEMAP_FILE = bookHack;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MJ.bookHack;
@@ -744,7 +750,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = bookHack/prefix.h;
 				INFOPLIST_FILE = bookHack/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULEMAP_FILE = bookHack;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MJ.bookHack;
