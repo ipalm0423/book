@@ -6,26 +6,33 @@
 //  Copyright © 2017年 Jack KY Chen. All rights reserved.
 //
 
-#ifndef PCMapItem_h
-#define PCMapItem_h
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+@interface PCSearchItem : NSObject
+@property (strong, nonatomic) NSString *targetPlace;
+@property (strong, nonatomic) NSNumber *numberOfPeople;
+@property (strong, nonatomic) NSDate *checkInDate;
+@property (strong, nonatomic) NSDate *checkOutDate;
+@end
 
 @interface PCMapBaseItem : NSObject
-@property CLLocation *location;
+@property (strong, nonatomic) CLLocation *location;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *description;
+@property (strong, nonatomic) NSURL *thumbnailImageURL;
+@property (strong, nonatomic) NSMutableArray *detailImageURLs;
 @end
 
 @interface PCMapSceneItem : PCMapBaseItem
-@property UIImage *previewImage;
+@property (strong, nonatomic) NSString *category;
 @end
 
 @interface PCMapHotelItem : PCMapBaseItem
-@property NSString *hotelId;
-@property NSNumber *numberOfPeople;
-@property NSDate *checkInDate;
-@property NSDate *checkOutDate;
+@property (strong, nonatomic) NSString *ID;
+@property (strong, nonatomic) NSNumber *star;
 @end
 
-#endif /* PCMapItem_h */
+
+

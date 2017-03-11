@@ -167,6 +167,7 @@
 		8913247F1E72E91F00288BA1 /* bookHack */ = {
 			isa = PBXGroup;
 			children = (
+				894D1E921E73E4350028D196 /* Model */,
 				89D237CE1E739FDD0041FC3A /* module */,
 				89D237CA1E739ED40041FC3A /* Views */,
 				891324831E72E91F00288BA1 /* AppDelegate.h */,
@@ -222,6 +223,14 @@
 			name = cardView;
 			sourceTree = "<group>";
 		};
+		894D1E921E73E4350028D196 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FB22E7AF1E73C3340017134E /* PCMapItem.h */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		89D237CA1E739ED40041FC3A /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,7 +247,6 @@
 				89D237E21E73AF1D0041FC3A /* Map.storyboard */,
 				89D237DF1E73AEC90041FC3A /* MapViewController.h */,
 				89D237E01E73AEC90041FC3A /* MapViewController.m */,
-				FB22E7AF1E73C3340017134E /* PCMapItem.h */,
 			);
 			name = map;
 			sourceTree = "<group>";
