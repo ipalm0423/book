@@ -13,21 +13,78 @@
 @interface SwipeViewController ()
 
 @property (strong, nonatomic) IBOutlet ZLSwipeableView *swipeableView;
-@property (strong, nonatomic) NSMutableArray *imageURLs;
+@property (strong, nonatomic) IBOutlet UIButton *buttonFavor;
+@property (strong, nonatomic) IBOutlet UIButton *buttonDelete;
+@property (strong, nonatomic) IBOutlet UIButton *buttonRetry;
+@property (strong, nonatomic) IBOutlet UILabel *labelRetry;
+
+
+
+@property (nonatomic) NSInteger currentIndex;
+@property (strong, nonatomic) NSMutableArray *favoriteList;
 @end
 
 @implementation SwipeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupSwipeView];
+    [self loadTestData];
+    [self setupButton];
+    [self loadSwipeView];
+    [self updateCardsFromServer];
 }
 
--(void)setupSwipeView{
-    //self.swipeableView.frame = self.view.bounds;
+-(void)loadSwipeView{
+    self.currentIndex = 0;
     self.swipeableView.dataSource = self;
     self.swipeableView.delegate = self;
+    self.swipeableView.allowedDirection = ZLSwipeableViewDirectionHorizontal;
+    self.swipeableView.numberOfActiveViews = self.candidates.count;
     [self.swipeableView loadViewsIfNeeded];
+}
+
+-(void)setupButton{
+    [[self.buttonFavor imageView] setContentMode: UIViewContentModeScaleAspectFit];
+    [[self.buttonDelete imageView] setContentMode: UIViewContentModeScaleAspectFit];
+    [[self.buttonRetry imageView] setContentMode: UIViewContentModeScaleAspectFit];
+    //hide retry button at first time
+    [self switchToRetryButton:NO];
+}
+
+-(void)switchToRetryButton:(BOOL)isRetry{
+    if (isRetry) {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.buttonRetry.alpha = 1;
+            self.labelRetry.alpha = 1;
+            self.buttonFavor.alpha = 0;
+            self.buttonDelete.alpha = 0;
+            
+        } completion:^(BOOL finished) {
+            
+        }];
+    }else{
+        [UIView animateWithDuration:0.5 animations:^{
+            self.buttonRetry.alpha = 0;
+            self.labelRetry.alpha = 0;
+            self.buttonFavor.alpha = 1;
+            self.buttonDelete.alpha = 1;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+}
+
+-(void)loadTestData{
+    PCMapSceneItem *item0 = [[PCMapSceneItem alloc]init];
+    item0.name = @"0";
+    item0.thumbnailImageURL = [NSURL URLWithString:@"https://i.imgur.com/50JrTK9.jpg"];
+    PCMapSceneItem *item1 = [[PCMapSceneItem alloc]init];
+    item1.name = @"1";
+    item1.thumbnailImageURL = [NSURL URLWithString:@"http://i.imgur.com/mt06zny.jpg"];
+    PCMapSceneItem *item2 = [[PCMapSceneItem alloc]init];
+    item2.name = @"2";
+    item2.thumbnailImageURL = [NSURL URLWithString:@"http://i.imgur.com/CjpjZfK.jpg"];
+    self.candidates = [NSMutableArray arrayWithObjects:item0, item1, item2, nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,11 +92,66 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Data
+-(void)addFavoriteItemForIndex:(NSInteger)index{
+    if (self.favoriteList == nil) {
+        self.favoriteList = [NSMutableArray new];
+    }
+    PCMapSceneItem *item = [self.candidates objectAtIndex:index];
+    if (item) {
+        [self.favoriteList addObject:item];
+        NSLog(@"add scene: %@ to favor", item.name);
+    }
+}
+
+-(BOOL)isLastCandidate:(NSInteger)index{
+    if ((index + 1) == self.candidates.count) {
+        return YES;
+    }
+    return NO;
+}
+
+-(void)processFavorResult{
+    if (self.favoriteList.count > 0) {
+        //post for hotel
+        
+    }else{
+        //show retry view
+        [self switchToRetryButton:YES];
+        
+    }
+}
+
+-(void)updateCardsFromServer{
+    //post
+    
+}
+
+#pragma mark - button
+- (IBAction)touchFavorButton:(UIButton *)sender {
+    [self.swipeableView swipeTopViewToRight];
+}
+
+- (IBAction)touchDeleteButton:(UIButton *)sender {
+    [self.swipeableView swipeTopViewToLeft];
+}
+
+- (IBAction)touchRetryButton:(UIButton *)sender {
+    //TODO:retry
+    
+}
 #pragma mark - ZLSwipeableViewDataSource
 -(UIView *)nextViewForSwipeableView:(ZLSwipeableView *)swipeableView{
+    if (self.candidates.count == 0 || self.currentIndex + 1 > self.candidates.count) {
+        return nil;
+    }
     
     UIView *parentView = [[UIView alloc] initWithFrame:swipeableView.bounds];
-    CardView *cardView = [CardView cardViewWithName:@"Hello World" imageURL:@"https://i.imgur.com/50JrTK9.jpg"];
+    PCMapSceneItem *item = [self.candidates objectAtIndex:self.currentIndex];
+    parentView.tag = self.currentIndex;
+    self.currentIndex++;
+    
+    CardView *cardView = [CardView cardViewWithName:item.name imageURL:item.thumbnailImageURL];
     [parentView addSubview:cardView];
     
     //constraint
@@ -68,23 +180,20 @@
          didSwipeView:(UIView *)view
           inDirection:(ZLSwipeableViewDirection)direction {
     NSLog(@"did swipe in direction: %zd", direction);
+    if (direction == ZLSwipeableViewDirectionLeft) {
+        //unlike
+    }else if (direction == ZLSwipeableViewDirectionRight){
+        //add to favor
+        [self addFavoriteItemForIndex:view.tag];
+    }
+    
+    if ([self isLastCandidate:view.tag]) {
+        //process
+        [self processFavorResult];
+    }
 }
 
-- (void)swipeableView:(ZLSwipeableView *)swipeableView didCancelSwipe:(UIView *)view {
-    NSLog(@"did cancel swipe");
-}
 
-- (void)swipeableView:(ZLSwipeableView *)swipeableView
-  didStartSwipingView:(UIView *)view
-           atLocation:(CGPoint)location {
-    NSLog(@"did start swiping at location: x %f, y %f", location.x, location.y);
-}
-
-- (void)swipeableView:(ZLSwipeableView *)swipeableView
-    didEndSwipingView:(UIView *)view
-           atLocation:(CGPoint)location {
-    NSLog(@"did end swiping at location: x %f, y %f", location.x, location.y);
-}
 
 
 /*

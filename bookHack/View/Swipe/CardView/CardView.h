@@ -14,5 +14,5 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
-+(CardView*)cardViewWithName:(NSString*)name imageURL:(NSString*)url;
++(CardView*)cardViewWithName:(NSString*)name imageURL:(NSURL*)url;
 @end

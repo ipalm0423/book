@@ -12,6 +12,7 @@
 
 @interface SwipeViewController : UIViewController<ZLSwipeableViewDataSource, ZLSwipeableViewDelegate>
 
-
+@property (strong, nonatomic) NSMutableArray *candidates;
+@property (strong, nonatomic) PCSearchItem *searchItem;
 
 @end

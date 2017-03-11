@@ -22,7 +22,7 @@
     
 }
 
-+(CardView*)cardViewWithName:(NSString*)name imageURL:(NSString*)url{
++(CardView*)cardViewWithName:(NSString*)name imageURL:(NSURL*)url{
     CardView *contentView =
     [[NSBundle mainBundle] loadNibNamed:@"CardView" owner:self options:nil][0];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -34,7 +34,7 @@
     
     //setting
     contentView.labelName.text = name;
-    [contentView.imageView sd_setImageWithURL:[NSURL URLWithString:url]];
+    [contentView.imageView sd_setImageWithURL:url];
     return contentView;
 }
 @end
