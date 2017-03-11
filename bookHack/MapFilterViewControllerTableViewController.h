@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MARKRangeSlider/MARKRangeSlider.h>
 
 @interface PCAttributeAdjustmentCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
+@property (weak, nonatomic) IBOutlet MARKRangeSlider *rangeSlider;
+
 @end
 
 @interface MapFilterViewControllerTableViewController : UITableViewController
