@@ -18,16 +18,14 @@
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIView *bottomBar;
-@property (weak, nonatomic) UIViewController *filterViewController;
 @end
 
 @implementation MapViewController
 @synthesize mapView, bottomBar, containerView;
-@synthesize filterViewController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _containerViewHeightConstraint.constant = 0;
     if (_userSearchItem == nil) {
         _userSearchItem = [PCSearchItem new];
         _userSearchItem.location = [[CLLocation alloc] initWithLatitude:-33.880837 longitude:151.205606];
@@ -65,35 +63,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)someAction:(id)sender {
-    if (filterViewController != nil) {
-        [filterViewController willMoveToParentViewController:self];
-        [[filterViewController view] removeFromSuperview];
-        [filterViewController removeFromParentViewController];
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.view layoutIfNeeded];
-        }];
-        filterViewController = nil;
-        return;
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+    
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    if ([containerView isKindOfClass:[UITableView class]]) {
+        _containerViewHeightConstraint.constant = ((UITableView *)containerView).contentSize.height;
     }
-    
-    UIViewController *vc = [UIViewController new];
-    [self addChildViewController:vc];
-    [vc didMoveToParentViewController:self];
-    [[vc view] setFrame:containerView.bounds];
-    [containerView addSubview: vc.view];
-    
-    [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[view]-0-|"
-                                                                    options:0
-                                                                    metrics:nil
-                                                                      views:@{@"view": vc.view}]];
-    
-    [containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view(100)]-0-|"
-                                                                    options:0
-                                                                    metrics:nil
-                                                                      views:@{@"view": vc.view}]];
-    
-    filterViewController = vc;
+}
+
+- (IBAction)someAction:(id)sender {
+    if (_containerViewHeightConstraint.constant == 0) {
+        _containerViewHeightConstraint.constant = 240;
+    }
+    else {
+        _containerViewHeightConstraint.constant = 0;
+    }
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
     }];

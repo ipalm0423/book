@@ -7,6 +7,7 @@ pod 'SDWebImage', '~>3.8'
 pod 'MBProgressHUD', '~> 1.0.0'
 pod 'CocoaLumberjack'
 pod 'ZLSwipeableView'
+pod 'MARKRangeSlider'
 
   target 'bookHackTests' do
     inherit! :search_paths
