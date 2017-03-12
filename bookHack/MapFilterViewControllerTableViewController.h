@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <MARKRangeSlider/MARKRangeSlider.h>
+#import "PCSearchItem.h"
 
 @interface PCAttributeAdjustmentCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (weak, nonatomic) IBOutlet MARKRangeSlider *rangeSlider;
-
 @end
 
 @interface MapFilterViewControllerTableViewController : UITableViewController
-
+@property (weak, nonatomic) PCSearchItem *searchItem;
 @end

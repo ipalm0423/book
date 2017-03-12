@@ -14,6 +14,7 @@
 #import "PCMapSceneItem.h"
 #import "HotelDetailViewController.h"
 #import "SceneDetailViewController.h"
+#import "MapFilterViewControllerTableViewController.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -34,7 +35,6 @@
     containerView.translatesAutoresizingMaskIntoConstraints = false;
     if (_userSearchItem == nil) {
         _userSearchItem = [PCSearchItem new];
-        _userSearchItem.location = [[CLLocation alloc] initWithLatitude:-33.880837 longitude:151.205606];
         _sceneMapItems = @[
                            [[PCMapSceneItem alloc] initWithLocation:[[CLLocation alloc] initWithLatitude:-33.880837 longitude:151.205606]
                                                                name:@"Scene A"],
@@ -61,6 +61,11 @@
     }
     for (PCMapBaseItem *mapItem in _hotelMapItems) {
         [mapView addAnnotation:mapItem];
+    }
+    for (MapFilterViewControllerTableViewController *filterVC in self.childViewControllers) {
+        if ([filterVC isKindOfClass:[MapFilterViewControllerTableViewController class]]) {
+            filterVC.searchItem = self.userSearchItem;
+        }
     }
 }
 
@@ -152,7 +157,7 @@
 //        vc.imageView.image =
         vc = _vc;
     }
-    vc.view.frame = CGRectMake(0, self.view.bounds.size.height * 2 / 3, self.view.bounds.size.width, self.view.bounds.size.height / 3);
+    vc.view.frame = CGRectMake(0, self.view.bounds.size.height * 0.5, self.view.bounds.size.width, self.view.bounds.size.height * 0.5);
     vc.view.transform = CGAffineTransformMakeTranslation(0, vc.view.frame.size.height);
     [self addChildViewController:vc];
     [vc didMoveToParentViewController:self];

@@ -48,9 +48,6 @@ typedef enum : NSInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     currentFilter = PCFilterNone;
-    [sliderPriceRange setMinValue:100 maxValue:10000];
-    [sliderPriceRange setLeftValue:1000 rightValue:4000];
-    labelPriceRange.text = @"$1000 - $4000";
     
     self.clearsSelectionOnViewWillAppear = NO;
 }
@@ -83,8 +80,45 @@ typedef enum : NSInteger {
 }
 
 - (IBAction)rangeChanged:(MARKRangeSlider *)sender {
-    labelPriceRange.text = [NSString stringWithFormat:@"$%d - $%d", (int)sender.leftValue, (int)sender.rightValue];
-    cellPrice.detailTextLabel.text = [NSString stringWithFormat:@"$%d - $%d", (int)sender.leftValue, (int)sender.rightValue];
+    switch (currentFilter) {
+        case PCFilterPrice:
+            _searchItem.minimumPrice = @((NSInteger) sender.leftValue);
+            _searchItem.maximumPrice = @((NSInteger) sender.rightValue);
+            self.tableView.visibleCells.firstObject.detailTextLabel.text = [NSString stringWithFormat:@"€%@ - €%@", _searchItem.minimumPrice, _searchItem.maximumPrice];
+            break;
+        case PCFilterScore:
+            _searchItem.minimumUserScore = @(sender.leftValue);
+            _searchItem.maximumUserScore = @(sender.rightValue);
+            self.tableView.visibleCells.firstObject.detailTextLabel.text = [NSString stringWithFormat:@"%.1f - %.1f", _searchItem.minimumUserScore.floatValue, _searchItem.maximumUserScore.floatValue];
+            break;
+        case PCFilterDistance:
+            _searchItem.minimumDistance = @((NSInteger) sender.leftValue);
+            _searchItem.maximumDistance = @((NSInteger) sender.rightValue);
+            self.tableView.visibleCells.firstObject.detailTextLabel.text = [NSString stringWithFormat:@"%@km - %@km", _searchItem.minimumDistance, _searchItem.maximumDistance];
+            break;
+        case PCFilterStarRating:
+            _searchItem.minimumStar = @(sender.leftValue);
+            _searchItem.maximumStar = @(sender.rightValue);
+            self.tableView.visibleCells.firstObject.detailTextLabel.text = [NSString stringWithFormat:@"%.1f - %.1f", _searchItem.minimumStar.floatValue, _searchItem.maximumStar.floatValue];
+            break;
+        default:
+            break;
+    }
+}
+
+- (IBAction)sliderValueChanged:(UISlider *)sender {
+    switch (currentFilter) {
+        case PCFilterReview:
+            _searchItem.minimumReviews = @((NSInteger) sender.value);
+            self.tableView.visibleCells.firstObject.detailTextLabel.text = [NSString stringWithFormat:@"At least %@", _searchItem.minimumReviews];
+            break;
+        case PCFilterCheckInPeople:
+            _searchItem.numberOfPeople = @((NSInteger) sender.value);
+            self.tableView.visibleCells.firstObject.detailTextLabel.text = [NSString stringWithFormat:@"%@ Adult(s)", _searchItem.numberOfPeople];
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -109,21 +143,27 @@ typedef enum : NSInteger {
         switch (indexPath.row) {
             case PCFilterPrice:
                 cell.textLabel.text = @"Price";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"€%@ - €%@", _searchItem.minimumPrice, _searchItem.maximumPrice];
                 break;
             case PCFilterScore:
                 cell.textLabel.text = @"Score";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", _searchItem.minimumUserScore, _searchItem.maximumUserScore];
                 break;
             case PCFilterReview:
                 cell.textLabel.text = @"Reviews";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"At least %@", _searchItem.minimumReviews];
                 break;
             case PCFilterDistance:
                 cell.textLabel.text = @"Distance";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@km - %@km", _searchItem.minimumDistance, _searchItem.maximumDistance];
                 break;
             case PCFilterStarRating:
                 cell.textLabel.text = @"Stars";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", _searchItem.minimumStar, _searchItem.maximumStar];
                 break;
             case PCFilterCheckInPeople:
                 cell.textLabel.text = @"People";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ Adult(s)", _searchItem.numberOfPeople];
                 break;
             default:
                 break;
@@ -131,30 +171,51 @@ typedef enum : NSInteger {
         return cell;
     }
     else {
-        PCAttributeAdjustmentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RangeCell" forIndexPath:indexPath];
-        [cell.rangeSlider addTarget:self action:@selector(rangeChanged:) forControlEvents:UIControlEventValueChanged];
+        PCAttributeAdjustmentCell *cell;
         switch (currentFilter) {
             case PCFilterPrice:
-                cell.titleLabel.text = @"Price";
+                cell = [tableView dequeueReusableCellWithIdentifier:@"RangeCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"Price for 1 night";
+                [cell.rangeSlider setMinValue:0 maxValue:5000];
+                [cell.rangeSlider setLeftValue:_searchItem.minimumPrice.floatValue rightValue:_searchItem.maximumPrice.floatValue];
                 break;
             case PCFilterScore:
-                cell.titleLabel.text = @"Score";
+                cell = [tableView dequeueReusableCellWithIdentifier:@"RangeCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"How much score does this hotel rated";
+                [cell.rangeSlider setMinValue:0 maxValue:10];
+                [cell.rangeSlider setLeftValue:_searchItem.minimumUserScore.floatValue rightValue:_searchItem.maximumUserScore.floatValue];
                 break;
             case PCFilterReview:
-                cell.titleLabel.text = @"Number of reviews";
+                cell = [tableView dequeueReusableCellWithIdentifier:@"ValueCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"Verified reviews from real guests";
+                [cell.slider setMinimumValue:0];
+                [cell.slider setMaximumValue:10000];
+                [cell.slider setValue:_searchItem.minimumReviews.integerValue];
                 break;
             case PCFilterDistance:
-                cell.titleLabel.text = @"Distance";
+                cell = [tableView dequeueReusableCellWithIdentifier:@"RangeCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"How far from hotel to scene spot";
+                [cell.rangeSlider setMinValue:0 maxValue:5];
+                [cell.rangeSlider setLeftValue:_searchItem.minimumDistance.integerValue rightValue:_searchItem.maximumDistance.integerValue];
                 break;
             case PCFilterStarRating:
-                cell.titleLabel.text = @"Stars";
+                cell = [tableView dequeueReusableCellWithIdentifier:@"RangeCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"How many stars is this hotel";
+                [cell.rangeSlider setMinValue:0 maxValue:5];
+                [cell.rangeSlider setLeftValue:_searchItem.minimumStar.floatValue rightValue:_searchItem.maximumStar.floatValue];
                 break;
             case PCFilterCheckInPeople:
-                cell.titleLabel.text = @"How many people to check in?";
+                cell = [tableView dequeueReusableCellWithIdentifier:@"ValueCell" forIndexPath:indexPath];
+                cell.titleLabel.text = @"# of people you want accommondate";
+                [cell.slider setMinimumValue:1];
+                [cell.slider setMaximumValue:4];
+                [cell.slider setValue:_searchItem.numberOfPeople.integerValue];
                 break;
             default:
                 break;
         }
+        [cell.rangeSlider addTarget:self action:@selector(rangeChanged:) forControlEvents:UIControlEventValueChanged];
+        [cell.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         return cell;
     }
 }

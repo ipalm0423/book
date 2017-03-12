@@ -15,4 +15,13 @@
 @property (strong, nonatomic) NSNumber *numberOfPeople;
 @property (strong, nonatomic) NSDate *checkInDate;
 @property (strong, nonatomic) NSDate *checkOutDate;
+@property (strong, nonatomic) NSNumber *minimumPrice;
+@property (strong, nonatomic) NSNumber *maximumPrice;
+@property (strong, nonatomic) NSNumber *minimumUserScore;
+@property (strong, nonatomic) NSNumber *maximumUserScore;
+@property (strong, nonatomic) NSNumber *minimumReviews;
+@property (strong, nonatomic) NSNumber *minimumStar;
+@property (strong, nonatomic) NSNumber *maximumStar;
+@property (strong, nonatomic) NSNumber *minimumDistance;
+@property (strong, nonatomic) NSNumber *maximumDistance;
 @end
