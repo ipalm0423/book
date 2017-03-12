@@ -25,6 +25,7 @@ static NSString *const ImageKey = @"AIzaSyAUlF-CDK8FqvWwwKJfFEkLw-LVDxFWlZ0";
     PCMapSceneItem *item = [[PCMapSceneItem alloc] initWithLocation:locate name:name];
     item.ID = place_id;
     item.photoReference = dic[@"photos"][0][@"photo_reference"];
+    item.rating = [NSNumber numberWithFloat:[dic[@"rating"]floatValue]];
     return item;
 }
 

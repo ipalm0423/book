@@ -72,6 +72,12 @@
     headerIndex ++;
     headerIndex = headerIndex % headerTexts.count;
     self.inputField.placeholder = headerTexts[headerIndex];
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.0f;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    
+    [self.inputField.layer addAnimation:transition forKey:nil];
     [self switchInputFieldPlaceHolderColor];
     
 }
@@ -127,6 +133,8 @@
 
 #pragma mark - Timer
 -(void)startAnimateView{
+    [self switchBackgroundImageView];
+    [self switchHeaderLabelText];
     imageTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(switchBackgroundImageView) userInfo:nil repeats:YES];
     headerTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(switchHeaderLabelText) userInfo:nil repeats:YES];
     imageIndex = 0;
