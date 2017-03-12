@@ -10,6 +10,7 @@
 #import "SearchTableViewCell.h"
 #import "SwipeViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface SearchViewController ()<UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource>
 
@@ -80,6 +81,12 @@
     imageIndex = imageIndex % imageNames.count;
     self.imageViewBackground.image = [UIImage imageNamed:imageNames[imageIndex]];
     
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1.0f;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    
+    [self.imageViewBackground.layer addAnimation:transition forKey:nil];
     
 }
 
