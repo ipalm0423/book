@@ -11,4 +11,5 @@
 
 @interface PCMapSceneItem : PCMapBaseItem
 @property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) NSNumber *rating;
 @end

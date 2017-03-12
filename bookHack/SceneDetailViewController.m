@@ -9,6 +9,8 @@
 #import "SceneDetailViewController.h"
 
 @interface SceneDetailViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *labelSceneName;
+@property (weak, nonatomic) IBOutlet UILabel *labelSceneRating;
 
 @end
 
@@ -16,7 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.labelSceneName.text = self.sceneItem.name;
+    self.labelSceneRating.text = [NSString stringWithFormat:@"%@ Star", self.sceneItem.rating];
 }
 
 - (void)didReceiveMemoryWarning {

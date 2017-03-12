@@ -11,6 +11,8 @@
 @interface HotelDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelHotelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelPrice;
+@property (weak, nonatomic) IBOutlet UILabel *labelStar;
+@property (weak, nonatomic) IBOutlet UILabel *labelUserRating;
 
 @end
 
@@ -20,6 +22,8 @@
     [super viewDidLoad];
     self.labelHotelName.text = _hotelItem.name;
     self.labelPrice.text = [NSString stringWithFormat:@"€%@ ~ €%@", self.hotelItem.minPrice, self.hotelItem.maxPrice];
+    self.labelStar.text = [NSString stringWithFormat:@"%@ Star", _hotelItem.star];
+    self.labelUserRating.text = [NSString stringWithFormat:@"%.1f / 10", _hotelItem.userRating.floatValue];
     NSString *urlString = [NSString stringWithFormat:@"https://hacker234:8hqNW6HtfU@distribution-xml.booking.com/json/bookings.getBlockAvailability?arrival_date=2017-06-10&departure_date=2017-06-11&hotel_ids=%@", self.hotelItem.ID];
     NSURL *apiUrl = [[NSURL alloc] initWithString:urlString];
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{

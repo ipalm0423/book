@@ -9,5 +9,10 @@
 #import "PCMapSceneItem.h"
 
 @implementation PCMapSceneItem
-
+- (PCMapBaseItem *)initWithLocation: (CLLocation *)location name: (NSString *)name {
+    if (self = [super initWithLocation:location name:name]) {
+        self.rating = @(2);
+    }
+    return self;
+}
 @end

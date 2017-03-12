@@ -14,6 +14,8 @@
         self.ID = @"10179";
         self.minPrice = @(0);
         self.maxPrice = @(0);
+        self.star = @(3);
+        self.userRating = @(5);
     }
     return self;
 }
