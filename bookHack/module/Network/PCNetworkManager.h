@@ -17,4 +17,5 @@
 
 -(void)getSearchResultByKeyword:(NSString*)keyword completionBlock:(void(^)(NSArray *results))completion;
 -(void)getScenesFromPlaceID:(NSString*)ID completionBlock:(void (^)(NSArray *results))completion;
+-(void)getHotelResultFromScene:(NSArray*)scenes completionBlock:(void (^)(NSArray *results, CLLocation *center))completion;
 @end

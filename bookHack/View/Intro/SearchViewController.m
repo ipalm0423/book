@@ -114,7 +114,7 @@
 -(void)setupViewData{
     headerTexts = @[@"Where To Fun ?", @"Where To Go ?", @"Where To Trip ?"];
     imageNames = @[@"ca0",@"dt0",@"dt1",@"eng0", @"eng1", @"jp0", @"jp1", @"tw0", @"tw1"];
-    placeHolderColor = @[[UIColor whiteColor],[UIColor whiteColor], [UIColor whiteColor], [UIColor darkGrayColor], [UIColor whiteColor], [UIColor whiteColor], [UIColor whiteColor], [UIColor whiteColor],[UIColor whiteColor]];
+    placeHolderColor = @[[UIColor darkGrayColor],[UIColor darkGrayColor], [UIColor darkGrayColor], [UIColor darkGrayColor], [UIColor darkGrayColor], [UIColor darkGrayColor], [UIColor darkGrayColor], [UIColor darkGrayColor],[UIColor darkGrayColor]];
     self.searchResults = [NSMutableArray new];
 }
 

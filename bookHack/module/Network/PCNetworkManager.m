@@ -11,7 +11,8 @@
 @import GooglePlaces;
 
 static NSString *const GoogleKey = @"AIzaSyBZ3urs5fuTVlzLaWxNoqU0a_jpCacxlBk";
-static NSString *const ServerAPIScene = @"http://172.20.10.8:5566/attractions?place_id=ChIJyWEHuEmuEmsRm9hTkapTCrk";
+static NSString *const ServerAPIScene = @"http://172.20.10.8:5566/attractions";
+static NSString *const ServerAPIHotel = @"http://172.20.10.8:5566/attractions/hotels";
 
 #pragma mark - address
 
@@ -22,18 +23,18 @@ static dispatch_once_t context;
 @implementation PCNetworkManager{
     AFHTTPSessionManager *manager;
     GMSPlacesClient *_placeClient;
+    NSURLSession *defaultSession;
+    
 }
 
 -(instancetype)init{
     if (self = [super init]) {
-        manager = [AFHTTPSessionManager manager];
-        manager.securityPolicy.allowInvalidCertificates = YES;
-        [manager.securityPolicy setValidatesDomainName:NO
-         ];
-        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+        defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
         _placeClient = [[GMSPlacesClient alloc] init];
         [GMSPlacesClient provideAPIKey:GoogleKey];
+        
+        
     }
     return self;
 }
@@ -64,19 +65,57 @@ static dispatch_once_t context;
     }];
 }
 
-
+-(void)getHotelResultFromScene:(NSArray*)scenes completionBlock:(void (^)(NSArray *results, CLLocation *center))completion{
+    if (scenes.count == 0) {
+        NSLog(@"have no scene");
+        return;
+    }
+    NSString *dateString = @"checkin=2017-06-08&checkout=2017-07-07";//TODO:demo only
+    NSString *scenesString = @"place_ids=";
+    BOOL isFirstItem = YES;
+    for (PCMapSceneItem *scene in scenes) {
+        if (isFirstItem) {
+            isFirstItem = NO;
+            scenesString = [NSString stringWithFormat:@"%@%@",scenesString, scene.ID];
+        }else{
+            scenesString = [NSString stringWithFormat:@"%@,%@",scenesString, scene.ID];
+        }
+    }
+    //format:
+    //http://172.20.10.8:5566/attractions/hotels\?checkin=2017-06-08\&checkout=2017-07-07\&place_ids=ChIJyWEHuEmuEmsRm9hTkapTCrk,ChIJLfySpTOuEmsRsc_JfJtljdc
+    NSString *url = [NSString stringWithFormat:@"%@?%@&%@", ServerAPIHotel,dateString,scenesString];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setTimeoutInterval:5];
+    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"error:%@", error);
+            return ;
+        }else{
+            NSLog(@"success");
+            NSError* parseError;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&parseError];
+            NSArray *results = [self parseHotelObjectWithJSON:json];
+            CLLocation *center = [self parseHotelCenter:json];
+            completion(results, center);
+        }
+        
+    }];
+    
+    [dataTask resume];
+    
+}
 
 #pragma mark - scene
 -(void)getScenesFromPlaceID:(NSString*)ID completionBlock:(void (^)(NSArray *results))completion{
-    
-    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
     
     NSString *url = [NSString stringWithFormat:@"%@?place_id=%@", ServerAPIScene, ID];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     
-    [request setURL:[NSURL URLWithString:ServerAPIScene]];
     [request setHTTPMethod:@"GET"];
     [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [request setTimeoutInterval:5];
@@ -99,6 +138,7 @@ static dispatch_once_t context;
     
 }
 
+#pragma mark - parse
 -(NSArray*)parseSceneObjectWithJSON:(NSDictionary*)dic{
     NSMutableArray *array = [NSMutableArray new];
     NSArray *results = dic[@"Results"];
@@ -107,5 +147,20 @@ static dispatch_once_t context;
         [array addObject:newScene];
     }
     return array;
+}
+
+-(NSArray*)parseHotelObjectWithJSON:(NSDictionary*)dic{
+    NSMutableArray *array = [NSMutableArray new];
+    NSArray *results = dic[@"hotels"];
+    for (NSDictionary *hotelDic in results) {
+        PCMapHotelItem *newScene = [PCMapHotelItem initWithDictionary:hotelDic];
+        [array addObject:newScene];
+    }
+    return array;
+}
+
+-(CLLocation*)parseHotelCenter:(NSDictionary*)dic{
+    CLLocation *center = [[CLLocation alloc]initWithLatitude:[dic[@"latitude"]floatValue] longitude:[dic[@"longitude"]floatValue]];
+    return center;
 }
 @end

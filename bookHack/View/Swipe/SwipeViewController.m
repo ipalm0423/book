@@ -10,6 +10,7 @@
 #import "CardView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MapViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface SwipeViewController ()
 
@@ -33,7 +34,6 @@
     
     [self setupButton];
     [self loadSwipeView];
-    [self updateCardsFromServer];
 }
 
 -(void)loadSwipeView{
@@ -126,25 +126,23 @@
 
 -(void)processFavorResult{
     if (self.favoriteList.count > 0) {
+        __weak typeof(self) weakSelf = self;
         //post for hotel
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[PCNetworkManager shareInstance]getHotelResultFromScene:self.favoriteList completionBlock:^(NSArray *results, CLLocation *center) {
+            [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+            if (results.count > 0) {
+                weakSelf.searchItem.location = center;
+                
+                //show map view
+                [weakSelf pushToMapViewControllerByHotelResults:results favorScene:weakSelf.favoriteList searchItem:weakSelf.searchItem];
+            }
+        }];
         
-        //show map view
-        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Map" bundle:nil];
-        MapViewController *mapVC = [storyBoard instantiateInitialViewController];
-        mapVC.hotelMapItems = self.relatedHotelList;
-        mapVC.sceneMapItems = self.favoriteList;
-        mapVC.userSearchItem = self.searchItem;
-        
-        [self.navigationController pushViewController:mapVC animated:YES];
     }else{
         //show retry view
         [self showRetryButton:YES];
     }
-}
-
--(void)updateCardsFromServer{
-    //post
-    
 }
 
 #pragma mark - button
@@ -216,7 +214,16 @@
 }
 
 
-
+#pragma mark - segue
+-(void)pushToMapViewControllerByHotelResults:(NSArray*)hotelResults favorScene:(NSArray*)favorScene searchItem:(PCSearchItem*)searchItem{
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Map" bundle:nil];
+    MapViewController *mapVC = [storyBoard instantiateInitialViewController];
+    mapVC.hotelMapItems = hotelResults;
+    mapVC.sceneMapItems = favorScene;
+    mapVC.userSearchItem = searchItem;
+    
+    [self.navigationController pushViewController:mapVC animated:YES];
+}
 
 /*
 #pragma mark - Navigation

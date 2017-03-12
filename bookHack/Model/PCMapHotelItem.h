@@ -10,11 +10,13 @@
 #import "PCMapBaseItem.h"
 
 @interface PCMapHotelItem : PCMapBaseItem
-@property (strong, nonatomic) NSString *ID;
+
 @property (strong, nonatomic) NSNumber *star;
 @property (strong, nonatomic) NSNumber *userRating;
 @property (strong, nonatomic) NSNumber *minPrice;
 @property (strong, nonatomic) NSNumber *maxPrice;
 @property (strong, nonatomic) NSNumber *numberReviews;
 @property (strong, nonatomic) NSNumber *distance;
+
++(PCMapHotelItem*)initWithDictionary:(NSDictionary*)dic;
 @end
