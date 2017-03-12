@@ -76,7 +76,67 @@
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
-    
+}
+
+- (void)refreshMapItems {
+    NSMutableString *hotelIds = [NSMutableString new];
+    [self.hotelMapItems enumerateObjectsUsingBlock:^(PCMapHotelItem*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [hotelIds appendString:[NSString stringWithFormat:@",%@", obj.ID]];
+    }];
+    [hotelIds replaceCharactersInRange:NSMakeRange(0, 1) withString:@""];
+    NSString *urlString = [NSString stringWithFormat:@"https://hacker234:8hqNW6HtfU@distribution-xml.booking.com/json/bookings.getBlockAvailability?arrival_date=2017-06-10&departure_date=2017-06-11&hotel_ids=%@", hotelIds];
+    NSURL *apiUrl = [[NSURL alloc] initWithString:urlString];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
+        NSData *data = [NSData dataWithContentsOfURL:apiUrl];
+        NSArray *result = [NSJSONSerialization JSONObjectWithData:data
+                                                          options:NSJSONReadingAllowFragments
+                                                            error:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (NSDictionary *hotelDict in result) {
+                // find hotel object
+                NSString *predicateString = [NSString stringWithFormat:@"ID=='%@'", hotelDict[@"hotel_id"]];
+                PCMapHotelItem *hotelItem = [self.hotelMapItems filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:predicateString]].firstObject;
+                NSMutableArray *prices = [NSMutableArray new];
+                NSNumber *minPrice = @(0);
+                NSNumber *maxPrice = @(0);
+                for (NSDictionary *dict in result) {
+                    NSNumber *n = @([dict[@"block"][0][@"min_price"][@"price"] floatValue]);
+                    [prices addObject:n];
+                    if (n.floatValue > maxPrice.floatValue) {
+                        maxPrice = n;
+                    }
+                    if (n.floatValue < minPrice.floatValue || minPrice.integerValue == 0) {
+                        minPrice = n;
+                    }
+                }
+                hotelItem.minPrice = minPrice;
+                hotelItem.maxPrice = maxPrice;
+            }
+            
+            for (PCMapHotelItem *hotelItem in self.hotelMapItems) {
+                if (hotelItem.minPrice > _userSearchItem.maximumPrice || hotelItem.maxPrice < _userSearchItem.minimumPrice) {
+                    [mapView removeAnnotation:hotelItem];
+                    continue;
+                }
+                if (hotelItem.star > _userSearchItem.maximumStar || hotelItem.star < _userSearchItem.minimumPrice) {
+                    [mapView removeAnnotation:hotelItem];
+                    continue;
+                }
+                if (hotelItem.numberReviews < _userSearchItem.minimumReviews) {
+                    [mapView removeAnnotation:hotelItem];
+                    continue;
+                }
+                if (hotelItem.userRating > _userSearchItem.maximumUserScore || hotelItem.userRating < _userSearchItem.minimumUserScore) {
+                    [mapView removeAnnotation:hotelItem];
+                    continue;
+                }
+                
+                if (![mapView.annotations containsObject:hotelItem]) {
+                    [mapView addAnnotation:hotelItem];
+                }
+            }
+        });
+    });
 }
 
 - (IBAction)someAction:(id)sender {
@@ -85,6 +145,7 @@
     }
     else {
         _containerViewHeightConstraint.constant = 0;
+        [self refreshMapItems];
     }
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];

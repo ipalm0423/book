@@ -16,6 +16,7 @@
         self.maxPrice = @(0);
         self.star = @(3);
         self.userRating = @(5);
+        self.numberReviews = @(0);
     }
     return self;
 }

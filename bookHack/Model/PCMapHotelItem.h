@@ -16,4 +16,5 @@
 @property (strong, nonatomic) NSNumber *minPrice;
 @property (strong, nonatomic) NSNumber *maxPrice;
 @property (strong, nonatomic) NSNumber *numberReviews;
+@property (strong, nonatomic) NSNumber *distance;
 @end
