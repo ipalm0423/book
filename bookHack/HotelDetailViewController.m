@@ -7,6 +7,7 @@
 //
 
 #import "HotelDetailViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface HotelDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelHotelName;
@@ -24,6 +25,7 @@
     self.labelPrice.text = [NSString stringWithFormat:@"€%@ ~ €%@", self.hotelItem.minPrice, self.hotelItem.maxPrice];
     self.labelStar.text = [NSString stringWithFormat:@"%@ Star", _hotelItem.star];
     self.labelUserRating.text = [NSString stringWithFormat:@"%.1f / 10", _hotelItem.userRating.floatValue];
+    [self.imageView sd_setImageWithURL:_hotelItem.thumbnailImageURL];
 }
 
 - (void)didReceiveMemoryWarning {

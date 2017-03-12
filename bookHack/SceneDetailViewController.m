@@ -7,6 +7,7 @@
 //
 
 #import "SceneDetailViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface SceneDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelSceneName;
@@ -20,6 +21,7 @@
     [super viewDidLoad];
     self.labelSceneName.text = self.sceneItem.name;
     self.labelSceneRating.text = [NSString stringWithFormat:@"%@ Star", self.sceneItem.rating];
+    [self.imageView sd_setImageWithURL:_sceneItem.thumbnailImageURL];
 }
 
 - (void)didReceiveMemoryWarning {
