@@ -79,7 +79,7 @@ typedef enum : NSInteger {
     return self.tableView.contentSize;
 }
 
-- (IBAction)rangeChanged:(MARKRangeSlider *)sender {
+- (IBAction)rangeChanging:(MARKRangeSlider *)sender {
     switch (currentFilter) {
         case PCFilterPrice:
             _searchItem.minimumPrice = @((NSInteger) sender.leftValue);
@@ -106,7 +106,8 @@ typedef enum : NSInteger {
     }
 }
 
-- (IBAction)sliderValueChanged:(UISlider *)sender {
+
+- (IBAction)sliderValueChanging:(UISlider *)sender {
     switch (currentFilter) {
         case PCFilterReview:
             _searchItem.minimumReviews = @((NSInteger) sender.value);
@@ -119,6 +120,10 @@ typedef enum : NSInteger {
         default:
             break;
     }
+}
+
+- (IBAction)editingDidEnd:(id)sender {
+    [self.delegate searchShouldChange];
 }
 
 
@@ -214,8 +219,11 @@ typedef enum : NSInteger {
             default:
                 break;
         }
-        [cell.rangeSlider addTarget:self action:@selector(rangeChanged:) forControlEvents:UIControlEventValueChanged];
-        [cell.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+        [cell.rangeSlider addTarget:self action:@selector(rangeChanging:) forControlEvents:UIControlEventValueChanged];
+        [cell.slider addTarget:self action:@selector(sliderValueChanging:) forControlEvents:UIControlEventValueChanged];
+        
+        [cell.rangeSlider addTarget:self action:@selector(editingDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
+        [cell.slider addTarget:self action:@selector(editingDidEnd:) forControlEvents:UIControlEventEditingDidEnd];
         return cell;
     }
 }

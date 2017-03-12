@@ -10,6 +10,10 @@
 #import <MARKRangeSlider/MARKRangeSlider.h>
 #import "PCSearchItem.h"
 
+@protocol MapFilterChangedProtocol <NSObject>
+- (void)searchShouldChange;
+@end
+
 @interface PCAttributeAdjustmentCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
@@ -17,5 +21,6 @@
 @end
 
 @interface MapFilterViewControllerTableViewController : UITableViewController
+@property (weak, nonatomic) id<MapFilterChangedProtocol> delegate;
 @property (weak, nonatomic) PCSearchItem *searchItem;
 @end

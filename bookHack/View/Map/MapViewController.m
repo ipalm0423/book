@@ -16,7 +16,7 @@
 #import "SceneDetailViewController.h"
 #import "MapFilterViewControllerTableViewController.h"
 
-@interface MapViewController () <MKMapViewDelegate>
+@interface MapViewController () <MKMapViewDelegate, MapFilterChangedProtocol>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewHeightConstraint;
@@ -65,8 +65,10 @@
     for (MapFilterViewControllerTableViewController *filterVC in self.childViewControllers) {
         if ([filterVC isKindOfClass:[MapFilterViewControllerTableViewController class]]) {
             filterVC.searchItem = self.userSearchItem;
+            filterVC.delegate = self;
         }
     }
+    [self refreshMapItems];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -145,13 +147,16 @@
     }
     else {
         _containerViewHeightConstraint.constant = 0;
-        [self refreshMapItems];
     }
     [UIView animateWithDuration:0.3 animations:^{
         [self.view layoutIfNeeded];
     }];
 }
 
+
+- (void)searchShouldChange {
+    [self refreshMapItems];
+}
 
 // MARK: MKMapView delegate
 
