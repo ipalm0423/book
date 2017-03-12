@@ -214,14 +214,12 @@
     if ([view.annotation isKindOfClass: [PCMapHotelItem class]]) {
         ((MKPinAnnotationView *)view).pinTintColor = [UIColor yellowColor];
         HotelDetailViewController *_vc = [[UIStoryboard storyboardWithName:@"Map" bundle:nil] instantiateViewControllerWithIdentifier:@"HotelDetailVC"];
-//        vc.imageView.image =
         _vc.hotelItem = (PCMapHotelItem *)view.annotation;
         vc = _vc;
     }
     if ([view.annotation isKindOfClass: [PCMapSceneItem class]]) {
         ((MKPinAnnotationView *)view).pinTintColor = [UIColor yellowColor];
         SceneDetailViewController *_vc = [[UIStoryboard storyboardWithName:@"Map" bundle:nil] instantiateViewControllerWithIdentifier:@"SceneDetailVC"];
-//        vc.imageView.image =
         vc = _vc;
     }
     vc.view.frame = CGRectMake(0, self.view.bounds.size.height * 0.5, self.view.bounds.size.width, self.view.bounds.size.height * 0.5);

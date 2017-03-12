@@ -149,30 +149,43 @@ typedef enum : NSInteger {
             case PCFilterPrice:
                 cell.textLabel.text = @"Price";
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"€%@ - €%@", _searchItem.minimumPrice, _searchItem.maximumPrice];
+                cell.imageView.image = [UIImage imageNamed:@"money_bag"];
+                cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
                 break;
             case PCFilterScore:
                 cell.textLabel.text = @"Score";
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", _searchItem.minimumUserScore, _searchItem.maximumUserScore];
+                cell.imageView.image = [UIImage imageNamed:@"like"];
+                cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
                 break;
             case PCFilterReview:
                 cell.textLabel.text = @"Reviews";
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"At least %@", _searchItem.minimumReviews];
+                cell.imageView.image = [UIImage imageNamed:@"comments"];
+                cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
                 break;
             case PCFilterDistance:
                 cell.textLabel.text = @"Distance";
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%@km - %@km", _searchItem.minimumDistance, _searchItem.maximumDistance];
+                cell.imageView.image = [UIImage imageNamed:@"distance_2"];
+                cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
                 break;
             case PCFilterStarRating:
                 cell.textLabel.text = @"Stars";
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", _searchItem.minimumStar, _searchItem.maximumStar];
+                cell.imageView.image = [UIImage imageNamed:@"star"];
+                cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
                 break;
             case PCFilterCheckInPeople:
                 cell.textLabel.text = @"People";
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ Adult(s)", _searchItem.numberOfPeople];
+                cell.imageView.image = [UIImage imageNamed:@"People-2"];
+                cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
                 break;
             default:
                 break;
         }
+        cell.imageView.transform = CGAffineTransformMakeScale(0.8, 0.8);
         return cell;
     }
     else {
@@ -262,6 +275,7 @@ typedef enum : NSInteger {
         currentFilter = PCFilterNone;
         [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         [tableView insertRowsAtIndexPaths:indexPathsInsert withRowAnimation:UITableViewRowAnimationAutomatic];
+        [tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
     }
     else {
         currentFilter = indexPath.row;
