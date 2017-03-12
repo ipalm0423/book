@@ -31,4 +31,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)actionBookIt:(id)sender {
+    NSURL *url = [NSURL URLWithString:@"https://www.booking.com"];
+    
+    if (![[UIApplication sharedApplication] openURL:url]) {
+        NSLog(@"%@%@",@"Failed to open url:",[url description]);
+    }
+}
+
 @end

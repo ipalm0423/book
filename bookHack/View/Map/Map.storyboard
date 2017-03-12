@@ -291,6 +291,9 @@
                                 <state key="normal" title="Rent a Room">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="actionBookIt:" destination="MIg-Vt-9jD" eventType="touchUpInside" id="lWc-2a-maI"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Js3-fK-YmO" userLabel="Price">
                                 <rect key="frame" x="31" y="252" width="0.0" height="0.0"/>

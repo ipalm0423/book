@@ -16,7 +16,7 @@
         self.numberOfPeople = @(1);
         self.checkInDate = [NSDate new]; // today
         self.checkOutDate = [NSDate dateWithTimeIntervalSinceNow:86400]; // one day after since now
-        self.minimumPrice = @(1000);
+        self.minimumPrice = @(0);
         self.maximumPrice = @(5000);
         self.minimumUserScore = @(0);
         self.maximumUserScore = @(10);
