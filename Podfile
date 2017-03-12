@@ -1,4 +1,4 @@
-platform :ios, ‘8.0’
+platform :ios, ‘9.0’
 
 target 'bookHack' do
 use_frameworks!
@@ -8,6 +8,7 @@ pod 'MBProgressHUD', '~> 1.0.0'
 pod 'CocoaLumberjack'
 pod 'ZLSwipeableView'
 pod 'MARKRangeSlider'
+pod 'GooglePlaces'
 
   target 'bookHackTests' do
     inherit! :search_paths

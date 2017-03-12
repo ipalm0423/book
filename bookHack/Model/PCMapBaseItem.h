@@ -16,6 +16,6 @@
 @property (strong, nonatomic) NSString *detail;
 @property (strong, nonatomic) NSURL *thumbnailImageURL;
 @property (strong, nonatomic) NSMutableArray *detailImageURLs;
-
+@property (strong, nonatomic) NSString *ID;
 - (PCMapBaseItem *)initWithLocation: (CLLocation *)location name: (NSString *)name;
 @end

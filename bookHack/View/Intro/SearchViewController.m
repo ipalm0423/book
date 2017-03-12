@@ -8,6 +8,8 @@
 
 #import "SearchViewController.h"
 #import "SearchTableViewCell.h"
+#import "SwipeViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface SearchViewController ()<UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource>
 
@@ -15,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *inputField;
 
 @property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) NSArray<GMSAutocompletePrediction*> *searchResults;
 @end
 
 @implementation SearchViewController{
@@ -25,9 +28,7 @@
     NSArray *imageNames;
     NSInteger imageIndex;
     NSTimer *imageTimer;
-   
-    //search result
-    NSArray *searchResults;
+    
 }
 
 - (void)viewDidLoad {
@@ -71,7 +72,7 @@
     headerIndex = headerIndex % headerTexts.count;
     self.inputField.placeholder = headerTexts[headerIndex];
     [self switchInputFieldPlaceHolderColor];
-    NSLog(@"switch header label:%@", headerTexts[headerIndex]);
+    
 }
 
 -(void)switchBackgroundImageView{
@@ -79,7 +80,7 @@
     imageIndex = imageIndex % imageNames.count;
     self.imageViewBackground.image = [UIImage imageNamed:imageNames[imageIndex]];
     
-    NSLog(@"switch background image:%@", imageNames[imageIndex]);
+    
 }
 
 -(void)switchInputFieldPlaceHolderColor{
@@ -94,9 +95,11 @@
         self.tableView.layer.cornerRadius = 5;
         self.tableView.clipsToBounds = YES;
         [self.view addSubview:self.tableView];
+        [self.tableView registerNib:[UINib nibWithNibName:@"SearchTableViewCell" bundle:nil] forCellReuseIdentifier:@"searchCell"];
+        
     }
     self.tableView.alpha = 0.8;
-    [self.tableView registerClass:[SearchTableViewCell class] forCellReuseIdentifier:@"searchCell"];
+    
     [self.tableView reloadData];
 }
 
@@ -112,18 +115,7 @@
     headerTexts = @[@"Where To Fun ?", @"Where To Go ?", @"Where To Trip ?"];
     imageNames = @[@"ca0",@"dt0",@"dt1",@"eng0", @"eng1", @"jp0", @"jp1", @"tw0", @"tw1"];
     placeHolderColor = @[[UIColor whiteColor],[UIColor whiteColor], [UIColor whiteColor], [UIColor darkGrayColor], [UIColor whiteColor], [UIColor whiteColor], [UIColor whiteColor], [UIColor whiteColor],[UIColor whiteColor]];
-    searchResults = [NSMutableArray new];
-}
-
-
--(void)loadTestResultData{
-    PCSearchResult *result0 = [[PCSearchResult alloc]init];
-    result0.name = @"Paris";
-    
-    PCSearchResult *result1 = [[PCSearchResult alloc]init];
-    result1.name = @"Japan";
-    
-    searchResults = @[result0, result1];
+    self.searchResults = [NSMutableArray new];
 }
 
 #pragma mark - Timer
@@ -143,8 +135,14 @@
 #pragma mark - UITextFieldDelegate
 -(BOOL)textFieldDidChange:(UITextField*)textField{
     NSLog(@"text field text:%@", self.inputField.text);
+    __weak typeof (self) weakSelf = self;
     if (self.inputField.text && self.inputField.text.length > 0) {
-        [self showTableView];
+        [[PCNetworkManager shareInstance]getSearchResultByKeyword:textField.text completionBlock:^(NSArray *results) {
+            if (results && results.count > 0) {
+                weakSelf.searchResults = results;
+            }
+            [weakSelf showTableView];
+        }];
     }else{
         [self dismissTableView];
     }
@@ -162,24 +160,51 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return searchResults.count;
+    return self.searchResults.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SearchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell" forIndexPath:indexPath];
-    PCSearchResult *result = searchResults[indexPath.row];
-    cell.labelMain.text = result.name;
+    GMSAutocompletePrediction *result = self.searchResults[indexPath.row];
+    cell.labelMain.text = result.attributedFullText.string;
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    PCSearchResult *result = searchResults[indexPath.row];
-    NSLog(@"select search hint for: %@", result.name);
+    GMSAutocompletePrediction *result = self.searchResults[indexPath.row];
+    self.inputField.text = result.attributedFullText.string;
+    [self dismissTableView];
+    [self hideKeyboard:nil];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    __weak typeof (self)weakSelf = self;
+    [[PCNetworkManager shareInstance] getScenesFromPlaceID:result.placeID completionBlock:^(NSArray *results) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if (results.count > 0) {
+            [weakSelf presentSwipeViewCcontrollerFromResult:results];
+        }
+    }];
+    NSLog(@"select search hint for: %@", result.attributedFullText.string);
 }
 
-#pragma mark - Network
+#pragma mark - Get Scene
 
 
+-(void)presentSwipeViewCcontrollerFromResult:(NSArray*)result{
+    //TODO:for demo setting
+    PCSearchItem *searchItem = [PCSearchItem new];
+    PCMapSceneItem *firstScen = result[0];
+    searchItem.location = [[CLLocation alloc] initWithLatitude:firstScen.coordinate.latitude longitude:firstScen.coordinate.longitude];
+    searchItem.targetPlace = self.inputField.text;
+    
+    //view segue
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Swipe" bundle:nil];
+    SwipeViewController *swipeVC = [storyBoard instantiateViewControllerWithIdentifier:@"SwipeViewID"];
+    swipeVC.candidates = result;
+    swipeVC.searchItem = searchItem;
+    
+    
+    [self.navigationController pushViewController:swipeVC animated:YES];
+}
 
 /*
 #pragma mark - Navigation
