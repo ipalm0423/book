@@ -56,7 +56,7 @@
 }
 
 - (IBAction)actionBookIt:(id)sender {
-    NSURL *url = [NSURL URLWithString:@"https://www.booking.com"];
+    NSURL *url = [NSURL URLWithString:@"https://www.booking.com/hotel/us/planet-hollywood.html?label=gen173nr-1DCAEoggJCAlhYSDNiBW5vcmVmaOcBiAEBmAExuAEHyAEN2AED6AEB-AECqAID;sid=fb42cf096c2c4afc37649603a566e9f0;dest_id=20079110;dest_type=city;dist=0;group_adults=2;hpos=1;room1=A%2CA;sb_price_type=total;srfid=349d74ccdf1be693e61b77887de7075ee5b684d9X1;type=total;ucfs=1&#hotelTmpl"];
     
     if (![[UIApplication sharedApplication] openURL:url]) {
         NSLog(@"%@%@",@"Failed to open url:",[url description]);

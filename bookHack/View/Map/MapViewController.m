@@ -192,12 +192,12 @@
     if ([overlay isKindOfClass:[MKCircle class]]) {
         MKCircle *circle = (MKCircle *)overlay;
         if (circle.radius <= 1000) {
-            circleRenderer.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.6];
-            circleRenderer.fillColor = [[UIColor blueColor] colorWithAlphaComponent:0.2];
+            circleRenderer.strokeColor = [[UIColor redColor] colorWithAlphaComponent:0.6];
+            circleRenderer.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
         }
         else {
-            circleRenderer.strokeColor = [[UIColor redColor] colorWithAlphaComponent:0.3];
-            circleRenderer.fillColor = [[UIColor redColor] colorWithAlphaComponent:0.1];
+            circleRenderer.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.3];
+            circleRenderer.fillColor = [[UIColor blueColor] colorWithAlphaComponent:0.1];
         }
     }
     
@@ -207,10 +207,10 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     MKPinAnnotationView *annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
     if ([annotation isKindOfClass: [PCMapHotelItem class]]) {
-        annotationView.pinTintColor = [UIColor redColor];
+        annotationView.pinTintColor = [UIColor blueColor];
     }
     if ([annotation isKindOfClass: [PCMapSceneItem class]]) {
-        annotationView.pinTintColor = [UIColor blueColor];
+        annotationView.pinTintColor = [UIColor redColor];
     }
     return annotationView;
 }
@@ -249,10 +249,10 @@
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
     if ([view.annotation isKindOfClass: [PCMapHotelItem class]]) {
-        ((MKPinAnnotationView *)view).pinTintColor = [UIColor redColor];
+        ((MKPinAnnotationView *)view).pinTintColor = [UIColor blueColor];
     }
     if ([view.annotation isKindOfClass: [PCMapSceneItem class]]) {
-        ((MKPinAnnotationView *)view).pinTintColor = [UIColor blueColor];
+        ((MKPinAnnotationView *)view).pinTintColor = [UIColor redColor];
     }
     
     UIViewController *vc = internalPopupViewController;
