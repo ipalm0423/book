@@ -16,10 +16,14 @@
 
 - (PCMapBaseItem *)initWithLocation: (CLLocation *)location name: (NSString *)name {
     if (self = [super init]) {
-        _coordinate = location.coordinate;
+        _location = location;
         _name = name;
     }
     return self;
+}
+
+- (CLLocationCoordinate2D)coordinate {
+    return _location.coordinate;
 }
 
 @end

@@ -11,7 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface PCMapBaseItem : NSObject<MKAnnotation>
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, readonly) CLLocation *location;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *detail;
 @property (strong, nonatomic) NSURL *thumbnailImageURL;

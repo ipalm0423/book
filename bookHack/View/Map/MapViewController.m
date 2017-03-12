@@ -56,11 +56,13 @@
     mapView.region = MKCoordinateRegionMakeWithDistance(_userSearchItem.location.coordinate, 5000, 5000);
     [mapView addOverlay:[MKCircle circleWithCenterCoordinate:_userSearchItem.location.coordinate radius:1000]];
     [mapView addOverlay:[MKCircle circleWithCenterCoordinate:_userSearchItem.location.coordinate radius:2000]];
-    for (PCMapBaseItem *mapItem in _sceneMapItems) {
+    for (PCMapSceneItem *mapItem in _sceneMapItems) {
         [mapView addAnnotation:mapItem];
     }
-    for (PCMapBaseItem *mapItem in _hotelMapItems) {
+    for (PCMapHotelItem *mapItem in _hotelMapItems) {
         [mapView addAnnotation:mapItem];
+        // Update missing variables
+        mapItem.distance = @([_userSearchItem.location distanceFromLocation:mapItem.location] / 1000.0);
     }
     for (MapFilterViewControllerTableViewController *filterVC in self.childViewControllers) {
         if ([filterVC isKindOfClass:[MapFilterViewControllerTableViewController class]]) {
@@ -129,6 +131,10 @@
                     continue;
                 }
                 if (hotelItem.userRating > _userSearchItem.maximumUserScore || hotelItem.userRating < _userSearchItem.minimumUserScore) {
+                    [mapView removeAnnotation:hotelItem];
+                    continue;
+                }
+                if (hotelItem.distance > _userSearchItem.maximumDistance || hotelItem.distance < _userSearchItem.minimumDistance) {
                     [mapView removeAnnotation:hotelItem];
                     continue;
                 }
