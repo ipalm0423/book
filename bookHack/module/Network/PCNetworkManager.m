@@ -89,7 +89,6 @@ static dispatch_once_t context;
     
     [request setHTTPMethod:@"GET"];
     [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request setTimeoutInterval:5];
     NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             NSLog(@"error:%@", error);

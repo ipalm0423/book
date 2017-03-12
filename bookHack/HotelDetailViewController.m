@@ -26,6 +26,27 @@
     self.labelPrice.text = [NSString stringWithFormat:@"€%@ ~ €%@", self.hotelItem.minPrice, self.hotelItem.maxPrice];
     [self.starRatingView setValue:_hotelItem.star.floatValue];
     self.labelUserRating.text = [NSString stringWithFormat:@"%.1f / 10", _hotelItem.userRating.floatValue];
+    
+    //
+    NSString *urlString = [NSString stringWithFormat:@"https://hacker234:8hqNW6HtfU@distribution-xml.booking.com/json/bookings.getHotelDescriptionPhotos?hotel_ids=%@", _hotelItem.ID];
+    NSURL *apiUrl = [[NSURL alloc] initWithString:urlString];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
+        NSData *data = [NSData dataWithContentsOfURL:apiUrl];
+        NSArray *result = [NSJSONSerialization JSONObjectWithData:data
+                                                          options:NSJSONReadingAllowFragments
+                                                            error:nil];
+        for (NSDictionary *dict in result) {
+            NSString *imageUrl = dict[@"url_max300"];
+            if (imageUrl != nil) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
+                });
+                return;
+            }
+        }
+        return;
+    });
+    
     [self.imageView sd_setImageWithURL:_hotelItem.thumbnailImageURL];
 }
 
