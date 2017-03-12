@@ -34,7 +34,7 @@
     item.star = [NSNumber numberWithInt:[dic[@"stars"] intValue]];
     item.numberReviews = [NSNumber numberWithInt:demoInt];
     item.userRating = [NSNumber numberWithFloat:[dic[@"review_score"] floatValue]];
-    
+    item.name = dic[@"hotel_name"];
     
     return item;
 }
