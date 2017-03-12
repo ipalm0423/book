@@ -9,5 +9,12 @@
 #import "PCMapHotelItem.h"
 
 @implementation PCMapHotelItem
-
+- (PCMapBaseItem *)initWithLocation: (CLLocation *)location name: (NSString *)name {
+    if (self = [super initWithLocation:location name:name]) {
+        self.ID = @"10179";
+        self.minPrice = @(0);
+        self.maxPrice = @(0);
+    }
+    return self;
+}
 @end

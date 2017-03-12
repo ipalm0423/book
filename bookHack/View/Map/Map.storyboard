@@ -262,33 +262,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HzM-sL-SdG">
-                                <rect key="frame" x="16" y="8" width="343" height="120"/>
+                                <rect key="frame" x="16" y="8" width="343" height="224"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZU8-B0-ukw">
-                                <rect key="frame" x="166" y="174" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZU8-B0-ukw" userLabel="Hotel Name">
+                                <rect key="frame" x="31" y="242" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BFp-wd-sX9">
-                                <rect key="frame" x="24.5" y="262" width="325" height="30"/>
+                                <rect key="frame" x="25" y="262" width="325" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Rent a Room">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Js3-fK-YmO" userLabel="Price">
+                                <rect key="frame" x="31" y="252" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ZU8-B0-ukw" firstAttribute="centerX" secondItem="N3m-Zj-VmU" secondAttribute="centerX" id="4RX-v9-mjV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="HzM-sL-SdG" secondAttribute="trailing" id="6uQ-Ny-0QQ"/>
-                            <constraint firstItem="ZU8-B0-ukw" firstAttribute="top" secondItem="HzM-sL-SdG" secondAttribute="bottom" constant="46" id="8me-PC-pAl"/>
                             <constraint firstItem="BFp-wd-sX9" firstAttribute="width" secondItem="N3m-Zj-VmU" secondAttribute="width" constant="-50" id="9uP-6J-Qhf"/>
-                            <constraint firstItem="HzM-sL-SdG" firstAttribute="height" secondItem="N3m-Zj-VmU" secondAttribute="height" multiplier="0.4" id="J9a-Be-rNU"/>
+                            <constraint firstItem="ZU8-B0-ukw" firstAttribute="top" secondItem="HzM-sL-SdG" secondAttribute="bottom" constant="10" id="H8h-4U-6tE"/>
+                            <constraint firstItem="BFp-wd-sX9" firstAttribute="top" secondItem="Js3-fK-YmO" secondAttribute="bottom" constant="10" id="Q2y-d6-Ow6"/>
+                            <constraint firstItem="Js3-fK-YmO" firstAttribute="leading" secondItem="N3m-Zj-VmU" secondAttribute="leadingMargin" constant="15" id="Tt8-eH-y7M"/>
                             <constraint firstItem="HzM-sL-SdG" firstAttribute="leading" secondItem="N3m-Zj-VmU" secondAttribute="leadingMargin" id="VUY-r4-XFx"/>
                             <constraint firstItem="HzM-sL-SdG" firstAttribute="top" secondItem="l6t-1N-p7v" secondAttribute="bottom" constant="8" id="WQd-8t-a7c"/>
                             <constraint firstItem="BFp-wd-sX9" firstAttribute="centerX" secondItem="N3m-Zj-VmU" secondAttribute="centerX" id="bct-PM-27Z"/>
+                            <constraint firstItem="Js3-fK-YmO" firstAttribute="top" secondItem="ZU8-B0-ukw" secondAttribute="bottom" constant="10" id="fP2-yQ-yvQ"/>
                             <constraint firstItem="EzE-l1-BSd" firstAttribute="top" secondItem="BFp-wd-sX9" secondAttribute="bottom" constant="8" id="jVD-Ya-XQJ"/>
+                            <constraint firstItem="ZU8-B0-ukw" firstAttribute="leading" secondItem="N3m-Zj-VmU" secondAttribute="leadingMargin" constant="15" id="qXh-rv-h9W"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -298,6 +306,8 @@
                     <size key="freeformSize" width="375" height="300"/>
                     <connections>
                         <outlet property="imageView" destination="HzM-sL-SdG" id="V7v-me-xY8"/>
+                        <outlet property="labelHotelName" destination="ZU8-B0-ukw" id="0tj-NU-dHZ"/>
+                        <outlet property="labelPrice" destination="Js3-fK-YmO" id="ASO-2k-EwV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MQE-k4-UyA" userLabel="First Responder" sceneMemberID="firstResponder"/>

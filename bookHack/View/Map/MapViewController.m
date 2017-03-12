@@ -149,6 +149,7 @@
         ((MKPinAnnotationView *)view).pinTintColor = [UIColor yellowColor];
         HotelDetailViewController *_vc = [[UIStoryboard storyboardWithName:@"Map" bundle:nil] instantiateViewControllerWithIdentifier:@"HotelDetailVC"];
 //        vc.imageView.image =
+        _vc.hotelItem = (PCMapHotelItem *)view.annotation;
         vc = _vc;
     }
     if ([view.annotation isKindOfClass: [PCMapSceneItem class]]) {
