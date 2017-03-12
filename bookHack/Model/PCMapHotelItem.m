@@ -31,7 +31,7 @@
     item.minPrice = [NSNumber numberWithInt:[dic[@"price"]intValue]];
     //TODO:demo
     int demoInt = arc4random_uniform(5);
-    item.star = [NSNumber numberWithInt:demoInt];
+    item.star = [NSNumber numberWithInt:[dic[@"stars"] intValue]];
     item.numberReviews = [NSNumber numberWithInt:demoInt];
     item.userRating = [NSNumber numberWithFloat:[dic[@"review_score"] floatValue]];
     
