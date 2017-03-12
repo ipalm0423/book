@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self loadTestData];
+    
     [self setupButton];
     [self loadSwipeView];
     [self updateCardsFromServer];
@@ -58,6 +58,7 @@
         [UIView animateWithDuration:0.5 animations:^{
             self.buttonRetry.alpha = 1;
             self.labelRetry.alpha = 1;
+            self.labelRetry.text = [NSString stringWithFormat:@"%@ Doesn't Meet You", self.searchItem.targetPlace];
             self.buttonFavor.alpha = 0;
             self.buttonDelete.alpha = 0;
             
@@ -157,7 +158,7 @@
 
 - (IBAction)touchRetryButton:(UIButton *)sender {
     //TODO:retry
-    [self loadTestData];
+    
     [self loadSwipeView];
     [self showRetryButton:NO];
 }
@@ -172,7 +173,7 @@
     parentView.tag = self.currentIndex;
     self.currentIndex++;
     
-    CardView *cardView = [CardView cardViewWithName:item.name imageURL:item.thumbnailImageURL];
+    CardView *cardView = [CardView cardViewWithName:item.name imageURL:[NSURL URLWithString:item.imageURL]];
     [parentView addSubview:cardView];
     
     //constraint

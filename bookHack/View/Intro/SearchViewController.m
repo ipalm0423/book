@@ -8,6 +8,8 @@
 
 #import "SearchViewController.h"
 #import "SearchTableViewCell.h"
+#import "SwipeViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface SearchViewController ()<UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource>
 
@@ -70,7 +72,7 @@
     headerIndex = headerIndex % headerTexts.count;
     self.inputField.placeholder = headerTexts[headerIndex];
     [self switchInputFieldPlaceHolderColor];
-    NSLog(@"switch header label:%@", headerTexts[headerIndex]);
+    
 }
 
 -(void)switchBackgroundImageView{
@@ -78,7 +80,7 @@
     imageIndex = imageIndex % imageNames.count;
     self.imageViewBackground.image = [UIImage imageNamed:imageNames[imageIndex]];
     
-    NSLog(@"switch background image:%@", imageNames[imageIndex]);
+    
 }
 
 -(void)switchInputFieldPlaceHolderColor{
@@ -170,11 +172,39 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     GMSAutocompletePrediction *result = self.searchResults[indexPath.row];
+    self.inputField.text = result.attributedFullText.string;
+    [self dismissTableView];
+    [self hideKeyboard:nil];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    __weak typeof (self)weakSelf = self;
+    [[PCNetworkManager shareInstance] getScenesFromPlaceID:result.placeID completionBlock:^(NSArray *results) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if (results.count > 0) {
+            [weakSelf presentSwipeViewCcontrollerFromResult:results];
+        }
+    }];
     NSLog(@"select search hint for: %@", result.attributedFullText.string);
 }
 
+#pragma mark - Get Scene
 
 
+-(void)presentSwipeViewCcontrollerFromResult:(NSArray*)result{
+    //TODO:for demo setting
+    PCSearchItem *searchItem = [PCSearchItem new];
+    PCMapSceneItem *firstScen = result[0];
+    searchItem.location = [[CLLocation alloc] initWithLatitude:firstScen.coordinate.latitude longitude:firstScen.coordinate.longitude];
+    searchItem.targetPlace = self.inputField.text;
+    
+    //view segue
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Swipe" bundle:nil];
+    SwipeViewController *swipeVC = [storyBoard instantiateViewControllerWithIdentifier:@"SwipeViewID"];
+    swipeVC.candidates = result;
+    swipeVC.searchItem = searchItem;
+    
+    
+    [self.navigationController pushViewController:swipeVC animated:YES];
+}
 
 /*
 #pragma mark - Navigation

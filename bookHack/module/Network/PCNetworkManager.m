@@ -7,10 +7,11 @@
 //
 
 #import "PCNetworkManager.h"
-@import GoogleMaps;
+
 @import GooglePlaces;
 
 static NSString *const GoogleKey = @"AIzaSyBZ3urs5fuTVlzLaWxNoqU0a_jpCacxlBk";
+static NSString *const ServerAPIScene = @"http://172.20.10.8:5566/attractions?place_id=ChIJyWEHuEmuEmsRm9hTkapTCrk";
 
 #pragma mark - address
 
@@ -31,7 +32,6 @@ static dispatch_once_t context;
          ];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        [GMSServices provideAPIKey:GoogleKey];
         _placeClient = [[GMSPlacesClient alloc] init];
         [GMSPlacesClient provideAPIKey:GoogleKey];
     }
@@ -48,7 +48,7 @@ static dispatch_once_t context;
     return shareInstance;
 }
 
--(void)getSearchResultByKeyword:(NSString *)keyword completionBlock:(void (^)(NSArray *))completion{
+-(void)getSearchResultByKeyword:(NSString*)keyword completionBlock:(void(^)(NSArray *results))completion{
 
     GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc]init];
     filter.type = kGMSPlacesAutocompleteTypeFilterCity;
@@ -62,5 +62,50 @@ static dispatch_once_t context;
             completion(results);
         }
     }];
+}
+
+
+
+#pragma mark - scene
+-(void)getScenesFromPlaceID:(NSString*)ID completionBlock:(void (^)(NSArray *results))completion{
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
+    
+    NSString *url = [NSString stringWithFormat:@"%@?place_id=%@", ServerAPIScene, ID];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
+    
+    [request setURL:[NSURL URLWithString:ServerAPIScene]];
+    [request setHTTPMethod:@"GET"];
+    [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setTimeoutInterval:5];
+    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"error:%@", error);
+            return ;
+        }else{
+            NSLog(@"success");
+            NSError* parseError;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&parseError];
+            NSArray *result = [self parseSceneObjectWithJSON:json];
+            completion(result);
+        }
+        
+    }];
+    
+    [dataTask resume];
+    
+    
+}
+
+-(NSArray*)parseSceneObjectWithJSON:(NSDictionary*)dic{
+    NSMutableArray *array = [NSMutableArray new];
+    NSArray *results = dic[@"Results"];
+    for (NSDictionary *sceneDic in results) {
+        PCMapSceneItem *newScene = [PCMapSceneItem initWithDictionary:sceneDic];
+        [array addObject:newScene];
+    }
+    return array;
 }
 @end

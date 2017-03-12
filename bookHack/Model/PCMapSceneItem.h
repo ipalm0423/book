@@ -11,4 +11,7 @@
 
 @interface PCMapSceneItem : PCMapBaseItem
 @property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) NSString *photoReference;
+@property (strong, nonatomic) NSString *imageURL;
++(PCMapSceneItem*)initWithDictionary:(NSDictionary*)dic;
 @end
