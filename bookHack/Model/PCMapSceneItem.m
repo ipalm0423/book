@@ -31,7 +31,7 @@ static NSString *const ImageKey = @"AIzaSyAUlF-CDK8FqvWwwKJfFEkLw-LVDxFWlZ0";
 
 -(NSString *)imageURL{
     if (_photoReference) {
-        return [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=%@&key=%@", _photoReference, ImageKey];
+        return [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=%@&key=%@", _photoReference, ImageKey];
     }
     return @"";
 }
