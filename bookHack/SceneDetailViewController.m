@@ -8,10 +8,11 @@
 
 #import "SceneDetailViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <HCSStarRatingView/HCSStarRatingView.h>
 
 @interface SceneDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelSceneName;
-@property (weak, nonatomic) IBOutlet UILabel *labelSceneRating;
+@property (weak, nonatomic) IBOutlet HCSStarRatingView *starRatingView;
 
 @end
 
@@ -20,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.labelSceneName.text = self.sceneItem.name;
-    self.labelSceneRating.text = [NSString stringWithFormat:@"%@ Star", self.sceneItem.rating];
+    [self.starRatingView setValue:self.sceneItem.rating.floatValue];
     [self.imageView sd_setImageWithURL:_sceneItem.thumbnailImageURL];
 }
 

@@ -9,6 +9,7 @@ pod 'CocoaLumberjack'
 pod 'ZLSwipeableView'
 pod 'MARKRangeSlider'
 pod 'GooglePlaces'
+pod 'HCSStarRatingView', '~> 1.4.5'
 
   target 'bookHackTests' do
     inherit! :search_paths

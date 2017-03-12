@@ -118,23 +118,27 @@
             }
             
             for (PCMapHotelItem *hotelItem in self.hotelMapItems) {
-                if (hotelItem.minPrice > _userSearchItem.maximumPrice || hotelItem.maxPrice < _userSearchItem.minimumPrice) {
+                if (hotelItem.minPrice.floatValue > _userSearchItem.maximumPrice.floatValue ||
+                    hotelItem.maxPrice.floatValue < _userSearchItem.minimumPrice.floatValue) {
                     [mapView removeAnnotation:hotelItem];
                     continue;
                 }
-                if (hotelItem.star > _userSearchItem.maximumStar || hotelItem.star < _userSearchItem.minimumPrice) {
+                if (hotelItem.star.floatValue > _userSearchItem.maximumStar.floatValue ||
+                    hotelItem.star.floatValue < _userSearchItem.minimumPrice.floatValue) {
                     [mapView removeAnnotation:hotelItem];
                     continue;
                 }
-                if (hotelItem.numberReviews < _userSearchItem.minimumReviews) {
+                if (hotelItem.numberReviews.floatValue < _userSearchItem.minimumReviews.floatValue) {
                     [mapView removeAnnotation:hotelItem];
                     continue;
                 }
-                if (hotelItem.userRating > _userSearchItem.maximumUserScore || hotelItem.userRating < _userSearchItem.minimumUserScore) {
+                if (hotelItem.userRating.floatValue > _userSearchItem.maximumUserScore.floatValue ||
+                    hotelItem.userRating.floatValue < _userSearchItem.minimumUserScore.floatValue) {
                     [mapView removeAnnotation:hotelItem];
                     continue;
                 }
-                if (hotelItem.distance > _userSearchItem.maximumDistance || hotelItem.distance < _userSearchItem.minimumDistance) {
+                if (hotelItem.distance.floatValue > _userSearchItem.maximumDistance.floatValue ||
+                    hotelItem.distance.floatValue < _userSearchItem.minimumDistance.floatValue) {
                     [mapView removeAnnotation:hotelItem];
                     continue;
                 }

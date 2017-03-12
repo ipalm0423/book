@@ -23,6 +23,7 @@ PODS:
   - GoogleMaps/Base (2.2.0)
   - GooglePlaces (2.2.0):
     - GoogleMaps/Base (= 2.2.0)
+  - HCSStarRatingView (1.4.5)
   - MARKRangeSlider (1.1.1)
   - MBProgressHUD (1.0.0)
   - SDWebImage (3.8.2):
@@ -34,6 +35,7 @@ DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - CocoaLumberjack
   - GooglePlaces
+  - HCSStarRatingView (~> 1.4.5)
   - MARKRangeSlider
   - MBProgressHUD (~> 1.0.0)
   - SDWebImage (~> 3.8)
@@ -44,11 +46,12 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 8311463ddf9ee86a06ef92a071dd656c89244500
   GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
   GooglePlaces: bca867d5e9da15384c794b945e4226848bc6e9d9
+  HCSStarRatingView: bff3f89314d3b5013ce826ea11897d3129ff6b8c
   MARKRangeSlider: ef7e1fe84d22996f47fd72dcb8de50b9410aac47
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   ZLSwipeableView: df385760ff4838935cdbcb62878ac5acd7355949
 
-PODFILE CHECKSUM: 2c332c08af22d677e0e8e940cc2154c413978977
+PODFILE CHECKSUM: 72b8d32413acf247ff7d2c9888c2312ceaf63b12
 
 COCOAPODS: 1.2.0

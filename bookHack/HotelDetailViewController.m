@@ -8,12 +8,13 @@
 
 #import "HotelDetailViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <HCSStarRatingView/HCSStarRatingView.h>
 
 @interface HotelDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *labelHotelName;
 @property (weak, nonatomic) IBOutlet UILabel *labelPrice;
-@property (weak, nonatomic) IBOutlet UILabel *labelStar;
 @property (weak, nonatomic) IBOutlet UILabel *labelUserRating;
+@property (weak, nonatomic) IBOutlet HCSStarRatingView *starRatingView;
 
 @end
 
@@ -23,7 +24,7 @@
     [super viewDidLoad];
     self.labelHotelName.text = _hotelItem.name;
     self.labelPrice.text = [NSString stringWithFormat:@"€%@ ~ €%@", self.hotelItem.minPrice, self.hotelItem.maxPrice];
-    self.labelStar.text = [NSString stringWithFormat:@"%@ Star", _hotelItem.star];
+    [self.starRatingView setValue:_hotelItem.star.floatValue];
     self.labelUserRating.text = [NSString stringWithFormat:@"%.1f / 10", _hotelItem.userRating.floatValue];
     [self.imageView sd_setImageWithURL:_hotelItem.thumbnailImageURL];
 }
