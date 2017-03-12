@@ -23,7 +23,7 @@
 }
 
 +(PCMapHotelItem*)initWithDictionary:(NSDictionary*)dic {
-    CLLocation *locate = [[CLLocation alloc]initWithLatitude:[dic[@"location"][@"latitude"]floatValue] longitude:[dic[@"location"][@"latitude"]floatValue]];
+    CLLocation *locate = [[CLLocation alloc]initWithLatitude:[dic[@"location"][@"latitude"]floatValue] longitude:[dic[@"location"][@"longitude"]floatValue]];
     
     PCMapHotelItem *item = [[self alloc]initWithLocation:locate name:@"name"];
     item.ID = dic[@"hotel_id"];
