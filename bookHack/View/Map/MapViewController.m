@@ -230,6 +230,7 @@
     if ([view.annotation isKindOfClass: [PCMapSceneItem class]]) {
         ((MKPinAnnotationView *)view).pinTintColor = [UIColor yellowColor];
         SceneDetailViewController *_vc = [[UIStoryboard storyboardWithName:@"Map" bundle:nil] instantiateViewControllerWithIdentifier:@"SceneDetailVC"];
+        _vc.sceneItem = (PCMapSceneItem *)view.annotation;
         vc = _vc;
     }
     vc.view.frame = CGRectMake(0, self.view.bounds.size.height * 0.5, self.view.bounds.size.width, self.view.bounds.size.height * 0.5);
