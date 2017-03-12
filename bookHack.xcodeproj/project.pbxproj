@@ -38,6 +38,8 @@
 		FBDB57BB1E73F017000C0EE2 /* PCMapSceneItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDB57B61E73F017000C0EE2 /* PCMapSceneItem.m */; };
 		FBDB57BC1E73F017000C0EE2 /* PCSearchItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDB57B81E73F017000C0EE2 /* PCSearchItem.m */; };
 		FBEA61061E73ED9F00164549 /* MapFilterViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEA61051E73ED9F00164549 /* MapFilterViewControllerTableViewController.m */; };
+		FBFF3DC51E746CA10004CD51 /* SceneDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFF3DC41E746CA10004CD51 /* SceneDetailViewController.m */; };
+		FBFF3DC81E746CB80004CD51 /* HotelDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBFF3DC71E746CB80004CD51 /* HotelDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +119,10 @@
 		FBDB57B81E73F017000C0EE2 /* PCSearchItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCSearchItem.m; path = Model/PCSearchItem.m; sourceTree = "<group>"; };
 		FBEA61041E73ED9F00164549 /* MapFilterViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapFilterViewControllerTableViewController.h; sourceTree = "<group>"; };
 		FBEA61051E73ED9F00164549 /* MapFilterViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapFilterViewControllerTableViewController.m; sourceTree = "<group>"; };
+		FBFF3DC31E746CA10004CD51 /* SceneDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDetailViewController.h; sourceTree = "<group>"; };
+		FBFF3DC41E746CA10004CD51 /* SceneDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDetailViewController.m; sourceTree = "<group>"; };
+		FBFF3DC61E746CB80004CD51 /* HotelDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelDetailViewController.h; sourceTree = "<group>"; };
+		FBFF3DC71E746CB80004CD51 /* HotelDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,6 +304,10 @@
 				89D237E01E73AEC90041FC3A /* MapViewController.m */,
 				FBEA61041E73ED9F00164549 /* MapFilterViewControllerTableViewController.h */,
 				FBEA61051E73ED9F00164549 /* MapFilterViewControllerTableViewController.m */,
+				FBFF3DC31E746CA10004CD51 /* SceneDetailViewController.h */,
+				FBFF3DC41E746CA10004CD51 /* SceneDetailViewController.m */,
+				FBFF3DC61E746CB80004CD51 /* HotelDetailViewController.h */,
+				FBFF3DC71E746CB80004CD51 /* HotelDetailViewController.m */,
 			);
 			name = map;
 			sourceTree = "<group>";
@@ -635,12 +645,14 @@
 				89D237DA1E73A8AB0041FC3A /* swift-bridge.swift in Sources */,
 				894D1EB41E7457BB0028D196 /* PCSearchResult.m in Sources */,
 				891324881E72E91F00288BA1 /* ViewController.m in Sources */,
+				FBFF3DC81E746CB80004CD51 /* HotelDetailViewController.m in Sources */,
 				89260E781E73C81B00191460 /* CardView.m in Sources */,
 				FBDB57B91E73F017000C0EE2 /* PCMapBaseItem.m in Sources */,
 				894D1EB91E747B7B0028D196 /* PCNetworkManager.m in Sources */,
 				894D1EA51E7406280028D196 /* SearchViewController.m in Sources */,
 				891324851E72E91F00288BA1 /* AppDelegate.m in Sources */,
 				FBDB57BC1E73F017000C0EE2 /* PCSearchItem.m in Sources */,
+				FBFF3DC51E746CA10004CD51 /* SceneDetailViewController.m in Sources */,
 				891324821E72E91F00288BA1 /* main.m in Sources */,
 				89D237D61E73A28B0041FC3A /* SwipeViewController.m in Sources */,
 				8913248E1E72E91F00288BA1 /* bookHack.xcdatamodeld in Sources */,

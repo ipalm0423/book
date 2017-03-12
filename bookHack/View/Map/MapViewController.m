@@ -12,6 +12,8 @@
 #import "PCMapBaseItem.h"
 #import "PCMapHotelItem.h"
 #import "PCMapSceneItem.h"
+#import "HotelDetailViewController.h"
+#import "SceneDetailViewController.h"
 
 @interface MapViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -21,6 +23,9 @@
 @end
 
 @implementation MapViewController
+{
+    UIViewController *internalPopupViewController;
+}
 @synthesize mapView, bottomBar, containerView;
 
 - (void)viewDidLoad {
@@ -134,11 +139,51 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    UIViewController *vc;
+    if ([view.annotation isKindOfClass: [PCMapHotelItem class]]) {
+        ((MKPinAnnotationView *)view).pinTintColor = [UIColor yellowColor];
+        HotelDetailViewController *_vc = [[UIStoryboard storyboardWithName:@"Map" bundle:nil] instantiateViewControllerWithIdentifier:@"HotelDetailVC"];
+//        vc.imageView.image =
+        vc = _vc;
+    }
+    if ([view.annotation isKindOfClass: [PCMapSceneItem class]]) {
+        ((MKPinAnnotationView *)view).pinTintColor = [UIColor yellowColor];
+        SceneDetailViewController *_vc = [[UIStoryboard storyboardWithName:@"Map" bundle:nil] instantiateViewControllerWithIdentifier:@"SceneDetailVC"];
+//        vc.imageView.image =
+        vc = _vc;
+    }
+    vc.view.frame = CGRectMake(0, self.view.bounds.size.height * 2 / 3, self.view.bounds.size.width, self.view.bounds.size.height / 3);
+    vc.view.transform = CGAffineTransformMakeTranslation(0, vc.view.frame.size.height);
+    [self addChildViewController:vc];
+    [vc didMoveToParentViewController:self];
+    [self.view addSubview:vc.view];
     
+    // Animation here;
+    [UIView animateWithDuration:0.3 animations:^{
+        vc.view.layer.transform = CATransform3DIdentity;
+    }];
+    
+    internalPopupViewController = vc;
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+    if ([view.annotation isKindOfClass: [PCMapHotelItem class]]) {
+        ((MKPinAnnotationView *)view).pinTintColor = [UIColor redColor];
+    }
+    if ([view.annotation isKindOfClass: [PCMapSceneItem class]]) {
+        ((MKPinAnnotationView *)view).pinTintColor = [UIColor blueColor];
+    }
     
+    UIViewController *vc = internalPopupViewController;
+    internalPopupViewController = nil;
+    [UIView animateWithDuration:0.3 animations:^{
+        vc.view.transform = CGAffineTransformMakeTranslation(0, vc.view.frame.size.height);
+    } completion:^(BOOL finished) {
+        [vc willMoveToParentViewController:self];
+        [vc.view removeFromSuperview];
+        [vc removeFromParentViewController];
+        [vc didMoveToParentViewController:self];
+    }];
 }
 
 /*
