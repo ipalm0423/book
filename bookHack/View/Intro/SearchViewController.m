@@ -152,7 +152,11 @@
     NSLog(@"text field text:%@", self.inputField.text);
     __weak typeof (self) weakSelf = self;
     if (self.inputField.text && self.inputField.text.length > 0) {
-        [[PCNetworkManager shareInstance]getSearchResultByKeyword:textField.text completionBlock:^(NSArray *results) {
+        [[PCNetworkManager shareInstance]getSearchResultByKeyword:textField.text completionBlock:^(NSArray *results, NSError *error) {
+            if (error) {
+                NSLog(@"error :%@",error.localizedDescription);
+                return;
+            }
             if (results && results.count > 0) {
                 weakSelf.searchResults = results;
             }
@@ -192,9 +196,11 @@
     [self hideKeyboard:nil];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     __weak typeof (self)weakSelf = self;
-    [[PCNetworkManager shareInstance] getScenesFromPlaceID:result.placeID completionBlock:^(NSArray *results) {
+    [[PCNetworkManager shareInstance] getScenesFromPlaceID:result.placeID completionBlock:^(NSArray *results, NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        if (results.count > 0) {
+        if (error) {
+            [weakSelf presentSwipeViewCcontrollerFromResult:[weakSelf getDemoResultData]];
+        }else if (results.count > 0) {
             [weakSelf presentSwipeViewCcontrollerFromResult:results];
         }
     }];
@@ -213,7 +219,7 @@
     
     //view segue
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Swipe" bundle:nil];
-    SwipeViewController *swipeVC = [storyBoard instantiateViewControllerWithIdentifier:@"SwipeViewID"];
+    SwipeViewController *swipeVC = [storyBoard instantiateInitialViewController];
     swipeVC.candidates = result;
     swipeVC.searchItem = searchItem;
     
@@ -221,6 +227,25 @@
     [self.navigationController pushViewController:swipeVC animated:YES];
 }
 
+#pragma mark - DEMO
+-(NSArray*)getDemoResultData{
+    PCMapSceneItem *item0 = [[PCMapSceneItem alloc]initWithLocation:[[CLLocation alloc] initWithLatitude:25.0380339 longitude:121.5014004] name:@"台北植物園"];
+    item0.thumbnailImageURL = [NSURL URLWithString:@"https://lh4.googleusercontent.com/proxy/LPtqpIUNOQNtbmuLaBylddZLtFiuQ_QvU6XFmiv8R5tGAXMF_FWgZVixLs5QbwifkmdwakllQGhbkTNwrn352uI13S-0fJDMfu_ejlAB51pbI6XSmNPjiADFpJa-szPqylV0XPIMX5M3c5XY17qYsa6VoJcX10k=w408-h305"];
+    
+    PCMapSceneItem *item1 = [[PCMapSceneItem alloc]initWithLocation:[[CLLocation alloc] initWithLatitude:24.9865959 longitude:121.5424077] name:@"光點台北"];
+    item1.thumbnailImageURL = [NSURL URLWithString:@"https://lh6.googleusercontent.com/proxy/IvgfqO7csUgAJBPho0llNwy6V4Q8BMb1fEu5OiphnlsaYx5rXBZOngwDjAJgYXHI4am7_MGz72xCjejk0GsCql86lwuk-uNafgsfCY6-nflgXcWUlEkpxxWsIomcO0zBSv8T2tY39U_A0pjxrAIkkOdm18CUSw=w528-h200"];
+    PCMapSceneItem *item2 = [[PCMapSceneItem alloc]initWithLocation:[[CLLocation alloc] initWithLatitude:25.0336322 longitude:121.5074203] name:@"龍山寺"];
+    item2.thumbnailImageURL = [NSURL URLWithString:@"https://lh6.googleusercontent.com/proxy/U6jSB6YG_V_-vClVtzQbS2JpNhWJd1800ufoe4gXUtR1mCPnLV_DY_553W6ZLAqEB5XvJEZnIu-ZHiEJfB0S_xeWEWXZ3ebSaCEcTmCA6dftEb0Ia4UDpTB2D9vQw2IxrZlOFBCmS_IEpit-5ZVW8lXFGx4m5Yk=w408-h271"];
+    PCMapSceneItem *item3 = [[PCMapSceneItem alloc]initWithLocation:[[CLLocation alloc] initWithLatitude:25.0300942 longitude:121.5176439] name:@"中正紀念堂"];
+    item2.thumbnailImageURL = [NSURL URLWithString:@"https://lh6.googleusercontent.com/proxy/RN-QhnDKLjGwlnmf4KCDCt7prFFq3H6088YvTc9Gufj_WP31XY2qzZFaMJWglwUPHUjSdqbSlK_iAi-QfKVuZYRI9payxs2xTFaz7V2Kuu_oBxqWLW9cAYQK7XucYV7dsQ3E4s9eInYdgR_J4oJOcR3aNVF4DA=w408-h271"];
+    PCMapSceneItem *item4 = [[PCMapSceneItem alloc]initWithLocation:[[CLLocation alloc] initWithLatitude:25.0300942 longitude:121.5176439] name:@"228"];
+    item2.thumbnailImageURL = [NSURL URLWithString:@"https://lh6.googleusercontent.com/proxy/HhApW56QpLZmVcSes_i5M8pl9EVwuhHodVxMw-rALeLXju7p54JXOliAR9hNxRd8VERBgUSPkAaWt9Rzt2qluhL5Of6-IVxz6zVfRWdXUbbQDrRGJX1W1IK3hb1y04MUa4lfR6CADM_sL88qSqVzsLSdS5thTb8=w408-h306"];
+    
+    
+    NSArray *demoItems = [NSMutableArray arrayWithObjects:item0, item1, item2, item3, item4, nil];
+    
+    return demoItems;
+}
 /*
 #pragma mark - Navigation
 

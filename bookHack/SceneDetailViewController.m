@@ -22,7 +22,7 @@
     [super viewDidLoad];
     self.labelSceneName.text = self.sceneItem.name;
     [self.starRatingView setValue:self.sceneItem.rating.floatValue];
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:_sceneItem.imageURL]];
+    [self.imageView sd_setImageWithURL:_sceneItem.thumbnailImageURL];
 }
 
 - (void)didReceiveMemoryWarning {

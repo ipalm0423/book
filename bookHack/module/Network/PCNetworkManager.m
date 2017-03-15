@@ -49,7 +49,7 @@ static dispatch_once_t context;
     return shareInstance;
 }
 
--(void)getSearchResultByKeyword:(NSString*)keyword completionBlock:(void(^)(NSArray *results))completion{
+-(void)getSearchResultByKeyword:(NSString*)keyword completionBlock:(void(^)(NSArray *results, NSError *error))completion{
 
     GMSAutocompleteFilter *filter = [[GMSAutocompleteFilter alloc]init];
     filter.type = kGMSPlacesAutocompleteTypeFilterCity;
@@ -57,15 +57,15 @@ static dispatch_once_t context;
     [[GMSPlacesClient sharedClient] autocompleteQuery:[keyword stringByReplacingOccurrencesOfString:@" " withString:@"+"] bounds:nil filter:filter callback:^(NSArray<GMSAutocompletePrediction *> * _Nullable results, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Autocomplete error %@", [error localizedDescription]);
-            return;
+            completion(nil, error);
         }
         if (completion) {
-            completion(results);
+            completion(results, nil);
         }
     }];
 }
 
--(void)getHotelResultFromScene:(NSArray*)scenes completionBlock:(void (^)(NSArray *results, CLLocation *center))completion{
+-(void)getHotelResultFromScene:(NSArray*)scenes completionBlock:(void (^)(NSArray *results, CLLocation *center, NSError *error))completion{
     if (scenes.count == 0) {
         NSLog(@"have no scene");
         return;
@@ -89,17 +89,18 @@ static dispatch_once_t context;
     
     [request setHTTPMethod:@"GET"];
     [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setTimeoutInterval:2];//demo only
     NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             NSLog(@"error:%@", error);
-            return ;
+            completion(nil,nil,error);
         }else{
             NSLog(@"success");
             NSError* parseError;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&parseError];
             NSArray *results = [self parseHotelObjectWithJSON:json];
             CLLocation *center = [self parseHotelCenter:json];
-            completion(results, center);
+            completion(results, center, nil);
         }
         
     }];
@@ -109,7 +110,7 @@ static dispatch_once_t context;
 }
 
 #pragma mark - scene
--(void)getScenesFromPlaceID:(NSString*)ID completionBlock:(void (^)(NSArray *results))completion{
+-(void)getScenesFromPlaceID:(NSString*)ID completionBlock:(void (^)(NSArray *results, NSError *error))completion{
     
     NSString *url = [NSString stringWithFormat:@"%@?place_id=%@", ServerAPIScene, ID];
     
@@ -117,17 +118,17 @@ static dispatch_once_t context;
     
     [request setHTTPMethod:@"GET"];
     [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-
+    [request setTimeoutInterval:2];//demo only
     NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             NSLog(@"error:%@", error);
-            return ;
+            completion(nil, error);
         }else{
             NSLog(@"success");
             NSError* parseError;
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&parseError];
             NSArray *result = [self parseSceneObjectWithJSON:json];
-            completion(result);
+            completion(result, nil);
         }
         
     }];

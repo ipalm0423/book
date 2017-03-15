@@ -36,6 +36,17 @@
     [self loadSwipeView];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.swipeableView loadViewsIfNeeded];
+    [self.navigationController.navigationBar setHidden:YES];
+}
+
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    [self.swipeableView loadViewsIfNeeded];
+}
+
 -(void)loadSwipeView{
     self.currentIndex = 0;
     self.swipeableView.dataSource = self;
@@ -129,9 +140,12 @@
         __weak typeof(self) weakSelf = self;
         //post for hotel
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [[PCNetworkManager shareInstance]getHotelResultFromScene:self.favoriteList completionBlock:^(NSArray *results, CLLocation *center) {
+        [[PCNetworkManager shareInstance]getHotelResultFromScene:self.favoriteList completionBlock:^(NSArray *results, CLLocation *center, NSError *error) {
             [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-            if (results.count > 0) {
+            if (error) {
+                //show map view
+                [weakSelf pushToMapViewControllerByHotelResults:[weakSelf getDemoHotelData] favorScene:weakSelf.favoriteList searchItem:weakSelf.searchItem];
+            }else if (results.count > 0) {
                 weakSelf.searchItem.location = center;
                 
                 //show map view
@@ -171,7 +185,7 @@
     parentView.tag = self.currentIndex;
     self.currentIndex++;
     
-    CardView *cardView = [CardView cardViewWithName:item.name imageURL:[NSURL URLWithString:item.imageURL]];
+    CardView *cardView = [CardView cardViewWithName:item.name imageURL:item.thumbnailImageURL];
     [parentView addSubview:cardView];
     
     //constraint
@@ -225,6 +239,39 @@
     [self.navigationController pushViewController:mapVC animated:YES];
 }
 
+#pragma mark - demo
+-(NSArray*)getDemoHotelData{
+    PCMapHotelItem *item0 = [self getHotelDemoItem];
+    PCMapHotelItem *item1 = [self getHotelDemoItem];
+    PCMapHotelItem *item2 = [self getHotelDemoItem];
+    PCMapHotelItem *item3 = [self getHotelDemoItem];
+    PCMapHotelItem *item4 = [self getHotelDemoItem];
+    PCMapHotelItem *item5 = [self getHotelDemoItem];
+    PCMapHotelItem *item6 = [self getHotelDemoItem];
+    PCMapHotelItem *item7 = [self getHotelDemoItem];
+    return [NSArray arrayWithObjects:item0, item1, item2, item3, item4, item5, item6, item7, nil];
+}
+
+-(PCMapHotelItem*)getHotelDemoItem{
+    int demoInt = arc4random_uniform(5);
+    int demoStar = arc4random_uniform(5);
+    int demoRate = arc4random_uniform(10);
+    int demoPrice = arc4random_uniform(500);
+    int demoPriceLow = arc4random_uniform(200);
+    int demoMinusLat = arc4random_uniform(10) % 2 == 1 ? 1:-1;
+    int demoMinusLog = arc4random_uniform(10) % 2 == 1 ? 1:-1;
+    float demoOffset = arc4random_uniform(100)*0.0001;
+    
+    PCMapHotelItem *item = [[PCMapHotelItem alloc]initWithLocation:[[CLLocation alloc]initWithLatitude:25.0380333+demoOffset*demoMinusLat longitude:121.5014001+demoOffset*demoMinusLog] name:@"name"];
+    item.ID = @"10179";
+    item.maxPrice = [NSNumber numberWithInt:demoPrice];
+    item.minPrice = [NSNumber numberWithInt:demoPriceLow];
+    item.star = [NSNumber numberWithInt:demoStar];
+    item.numberReviews = [NSNumber numberWithInt:demoInt];
+    item.userRating = [NSNumber numberWithInt:demoRate];
+    item.name = @"hotel_name1";
+    return item;
+}
 /*
 #pragma mark - Navigation
 

@@ -12,10 +12,10 @@
 
 @interface PCNetworkManager : NSObject<NSURLSessionDelegate>
 
-+(PCNetworkManager*_Nullable)shareInstance;
++(PCNetworkManager*_Nonnull)shareInstance;
 
 
--(void)getSearchResultByKeyword:(NSString*)keyword completionBlock:(void(^)(NSArray *results))completion;
--(void)getScenesFromPlaceID:(NSString*)ID completionBlock:(void (^)(NSArray *results))completion;
--(void)getHotelResultFromScene:(NSArray*)scenes completionBlock:(void (^)(NSArray *results, CLLocation *center))completion;
+-(void)getSearchResultByKeyword:(NSString* _Nonnull)keyword completionBlock:(void(^ _Nullable)(  NSArray *_Nullable results,  NSError * _Nullable error ))completion;
+-(void)getScenesFromPlaceID:(NSString* _Nonnull)ID completionBlock:(void (^ _Nullable)(NSArray *_Nullable results, NSError *_Nullable error))completion;
+-(void)getHotelResultFromScene:(NSArray* _Nonnull)scenes completionBlock:(void (^ _Nullable )(NSArray *_Nullable results, CLLocation *_Nullable center, NSError *_Nullable error))completion;
 @end
